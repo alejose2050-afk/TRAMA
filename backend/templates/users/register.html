@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registro Universitario — TRAMA{% endblock %}
+
+{% block content %}
+<div class="trama-container">
+  <div class="auth-wrapper" style="max-width: 580px;">
+    <div class="auth-card">
+      
+      <div class="auth-header">
+        <a href="{% url 'home' %}">
+          <img src="{% static 'img/trama_logo.png' %}" alt="TRAMA" class="auth-header-logo">
+        </a>
+        <h1 class="auth-title">Crear Cuenta Universitaria</h1>
+        <p class="auth-subtitle">Regístrate para solicitar y articular recursos dentro de la comunidad de TRAMA.</p>
+      </div>
+
+      <form method="post" action="{% url 'users:register' %}">
+        {% csrf_token %}
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="id_first_name" class="form-label">Nombres</label>
+            {{ form.first_name }}
+            {% if form.first_name.errors %}
+              <div class="form-error-msg">{{ form.first_name.errors.0 }}</div>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <label for="id_last_name" class="form-label">Apellidos</label>
+            {{ form.last_name }}
+            {% if form.last_name.errors %}
+              <div class="form-error-msg">{{ form.last_name.errors.0 }}</div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="id_email" class="form-label">Correo institucional</label>
+          {{ form.email }}
+          <span class="form-help">Utiliza preferiblemente tu dirección de correo universitario.</span>
+          {% if form.email.errors %}
+            <div class="form-error-msg">{{ form.email.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label for="id_department" class="form-label">Facultad, Escuela o Departamento</label>
+          {{ form.department }}
+          {% if form.department.errors %}
+            <div class="form-error-msg">{{ form.department.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          <label for="id_role" class="form-label">Tipo de vinculación en el campus</label>
+          {{ form.role }}
+          <span class="form-help">Los docentes o gestores tienen permisos para coordinar actividades y recursos propios.</span>
+          {% if form.role.errors %}
+            <div class="form-error-msg">{{ form.role.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="id_password" class="form-label">Contraseña</label>
+            {{ form.password }}
+            {% if form.password.errors %}
+              <div class="form-error-msg">{{ form.password.errors.0 }}</div>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <label for="id_password_confirm" class="form-label">Confirmar Contraseña</label>
+            {{ form.password_confirm }}
+            {% if form.password_confirm.errors %}
+              <div class="form-error-msg">{{ form.password_confirm.errors.0 }}</div>
+            {% endif %}
+          </div>
+        </div>
+
+        {% if form.non_field_errors %}
+          <div class="trama-alert trama-alert-error" style="margin-top: 10px;">
+            <span>{{ form.non_field_errors.0 }}</span>
+          </div>
+        {% endif %}
+
+        <div style="margin-top: 26px;">
+          <button type="submit" class="btn btn-amber btn-block btn-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7.5" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+            Completar Registro en TRAMA
+          </button>
+        </div>
+      </form>
+
+      <div class="auth-footer">
+        ¿Ya tienes una cuenta registrada? <a href="{% url 'users:login' %}">Inicia sesión aquí</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

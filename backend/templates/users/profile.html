@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mi Perfil Universitario — TRAMA{% endblock %}
+
+{% block content %}
+<div class="trama-container" style="padding-top: 36px; padding-bottom: 64px;">
+  
+  <div style="max-width: 760px; margin: 0 auto;">
+    
+    <!-- Encabezado de Perfil -->
+    <div style="background-color: #ffffff; border: 1px solid var(--trama-border); border-radius: var(--radius-lg); padding: 28px 32px; box-shadow: var(--shadow-sm); margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+      <div style="display: flex; align-items: center; gap: 18px;">
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: var(--grad-ribbon); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; box-shadow: var(--shadow-md);">
+          {{ user_obj.first_name|first }}{{ user_obj.last_name|first }}
+        </div>
+        <div>
+          <h1 style="font-size: 1.5rem; font-weight: 800; color: var(--trama-navy-deep); line-height: 1.2;">
+            {{ user_obj.get_full_name }}
+          </h1>
+          <div style="font-size: 0.88rem; color: var(--trama-text-muted); margin-top: 2px;">
+            {{ user_obj.email }}
+          </div>
+        </div>
+      </div>
+      <div>
+        <span class="badge badge-amber" style="font-size: 0.8rem; padding: 6px 14px;">
+          Rol: {{ user_obj.get_role_display }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Formulario de Edición de Perfil -->
+    <div class="auth-card" style="box-shadow: var(--shadow-sm);">
+      <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--trama-navy-deep); margin-bottom: 6px;">
+        Información de Contacto y Adscripción
+      </h2>
+      <p style="font-size: 0.88rem; color: var(--trama-text-muted); margin-bottom: 24px;">
+        Mantén tus datos actualizados para que los responsables de los recursos puedan contactarte al aprobar solicitudes.
+      </p>
+
+      <form method="post" action="{% url 'users:profile' %}">
+        {% csrf_token %}
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="id_first_name" class="form-label">Nombres</label>
+            {{ form.first_name }}
+            {% if form.first_name.errors %}
+              <div class="form-error-msg">{{ form.first_name.errors.0 }}</div>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <label for="id_last_name" class="form-label">Apellidos</label>
+            {{ form.last_name }}
+            {% if form.last_name.errors %}
+              <div class="form-error-msg">{{ form.last_name.errors.0 }}</div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="id_department" class="form-label">Facultad, Escuela o Departamento</label>
+            {{ form.department }}
+            {% if form.department.errors %}
+              <div class="form-error-msg">{{ form.department.errors.0 }}</div>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <label for="id_phone" class="form-label">Teléfono de contacto</label>
+            {{ form.phone }}
+            {% if form.phone.errors %}
+              <div class="form-error-msg">{{ form.phone.errors.0 }}</div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="id_bio" class="form-label">Descripción o Bio Académica</label>
+          {{ form.bio }}
+          {% if form.bio.errors %}
+            <div class="form-error-msg">{{ form.bio.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div style="margin-top: 24px; display: flex; justify-content: flex-end; gap: 12px;">
+          <a href="{% url 'home' %}" class="btn btn-outline">Volver al Inicio</a>
+          <button type="submit" class="btn btn-primary">
+            Guardar Cambios
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}
