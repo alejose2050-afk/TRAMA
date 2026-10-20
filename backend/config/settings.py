@@ -46,8 +46,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
-    # Apps del proyecto (se agregarán conforme se creen)
-    # 'users',
+    # Apps del proyecto
+    'users',
 ]
 
 
@@ -104,10 +104,9 @@ DATABASES = {
 
 
 # --- Modelo de usuario personalizado ---
-# Se debe definir ANTES de ejecutar la primera migración.
-# La app 'users' se creará en el siguiente paso.
+# Indica a Django que use nuestro modelo personalizado en lugar del User genérico.
 
-# AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'users.User'
 
 
 # --- Validación de contraseñas ---
