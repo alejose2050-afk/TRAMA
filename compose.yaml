@@ -1,4 +1,9 @@
+# Servicios de TRAMA - Entorno de desarrollo
+# Base de datos PostgreSQL y backend Django
+
 services:
+
+  # --- Base de datos ---
   db:
     image: postgres:17
     container_name: trama-db
@@ -16,6 +21,29 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+  # --- Backend Django ---
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: trama-backend
+    restart: unless-stopped
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app
+    ports:
+      - "127.0.0.1:8000:8000"
+    environment:
+      - DEBUG=1
+      - DB_NAME=trama
+      - DB_USER=trama_user
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_HOST=db
+      - DB_PORT=5432
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   postgres_data:
