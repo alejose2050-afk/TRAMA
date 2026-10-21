@@ -1,14 +1,15 @@
 """
 Vistas para la gestión de usuarios, autenticación y navegación principal de TRAMA.
+Contextualizado a la UNELLEZ (Universidad Nacional Experimental de los Llanos Occidentales Ezequiel Zamora).
 
 Controladores incluidos:
 - home_view: Vista adaptativa basada en roles (RBAC) para cumplir la pauta B.8:
-    * Visitante: Landing y catálogo de consulta pública.
-    * Usuario (Estudiante): Panel de préstamos personales y solicitudes activas.
-    * Gestor (Docente/Laboratorio): Bandeja de aprobación de solicitudes y recursos a cargo.
-    * Administrador: Métricas globales del sistema y acceso directo al Django Admin.
-- register_view: Procesa el registro de nuevos usuarios con rol y perfil inicial.
-- login_view: Autentica al usuario mediante correo institucional y contraseña.
+    * Visitante: Portada y catálogo de consulta para la comunidad unellista.
+    * Usuario (Estudiante): Panel de solicitudes personales de equipos y espacios para subproyectos.
+    * Gestor (Docente/Jefe de Subprograma): Bandeja de aprobación de préstamos y recursos a su cargo.
+    * Administrador: Métricas globales del sistema piloto y acceso directo al Django Admin.
+- register_view: Procesa el registro con rol y adscripción a la UNELLEZ.
+- login_view: Autentica al usuario mediante correo y contraseña.
 - logout_view: Cierra la sesión activa y redirige al inicio.
 - profile_view: Permite al usuario consultar y actualizar sus datos de perfil.
 """
@@ -26,7 +27,7 @@ User = get_user_model()
 def home_view(request):
     """
     Página principal de TRAMA.
-    Renderiza la vista correspondiente según el rol o privilegio del usuario (B.8).
+    Renderiza la vista correspondiente según el rol o privilegio del usuario en la UNELLEZ (B.8).
     """
     user = request.user
     context = {}
@@ -36,39 +37,39 @@ def home_view(request):
         context['role_view'] = 'visitor'
         context['categories'] = [
             {
-                'title': 'Equipos Audiovisuales',
-                'desc': 'Proyectores de alta luminosidad, micrófonos, sistemas de sonido y punteros láser para ponencias.',
+                'title': 'Video Beams y Audiovisual',
+                'desc': 'Proyectores de video, cornetas amplificadas y punteros láser para defensas de proyecto y clases.',
                 'icon': 'projector',
-                'badge': 'Alta demanda',
-                'count': 18,
+                'badge': 'Uso en aula',
+                'count': 4,
             },
             {
-                'title': 'Cómputo y Portátiles',
-                'desc': 'Laptops para talleres de programación, tabletas digitalizadoras y adaptadores de red.',
+                'title': 'Laboratorios de Computación',
+                'desc': 'Salas de cómputo y laboratorio de redes en Barinas I para prácticas de programación y sistemas.',
                 'icon': 'laptop',
-                'badge': 'Préstamo por horas',
-                'count': 24,
+                'badge': 'Práctica por horas',
+                'count': 3,
             },
             {
-                'title': 'Laboratorios y Espacios',
-                'desc': 'Aulas especializadas, laboratorios de redes, salas de conferencias y auditorios.',
+                'title': 'Espacios y Auditorios',
+                'desc': 'Auditorio Central de Barinas I y Salón de Usos Múltiples para ponencias y eventos académicos.',
                 'icon': 'building',
                 'badge': 'Reserva previa',
-                'count': 12,
+                'count': 2,
             },
             {
-                'title': 'Mobiliario y Eventos',
-                'desc': 'Sillas plegables, pizarras móviles, atriles institucionales y mamparas para ferias de proyectos.',
+                'title': 'Conectividad y Accesorios',
+                'desc': 'Regletas, extensiones eléctricas, cables de red UTP y adaptadores HDMI para talleres.',
                 'icon': 'archive',
-                'badge': 'Para actividades',
-                'count': 35,
+                'badge': 'Apoyo técnico',
+                'count': 5,
             },
         ]
         context['stats'] = {
-            'resources_count': '85+',
-            'activities_count': '32',
-            'faculties_count': '6',
-            'approval_rate': '98%',
+            'resources_count': '14',
+            'activities_count': '3',
+            'faculties_count': 'VPDS Barinas',
+            'approval_rate': '100%',
         }
 
     # 2. Rol ADMINISTRADOR (Supervisión global)
@@ -79,75 +80,66 @@ def home_view(request):
         context['users_students'] = User.objects.filter(role=User.Role.USER).count()
         context['latest_users'] = User.objects.order_by('-date_joined')[:6]
 
-    # 3. Rol GESTOR (Docente o Encargado de Recursos / Laboratorio)
+    # 3. Rol GESTOR (Docente o Jefe de Subprograma / Encargado de Laboratorio)
     elif user.role == User.Role.MANAGER:
         context['role_view'] = 'manager'
-        context['pending_approvals_count'] = 3
-        context['managed_resources_count'] = 14
-        context['active_activities_count'] = 5
+        context['pending_approvals_count'] = 2
+        context['managed_resources_count'] = 6
+        context['active_activities_count'] = 2
         context['pending_requests'] = [
             {
                 'id': 101,
                 'student': 'Carlos Mendoza (Estudiante)',
-                'resource': 'Proyector Epson PowerLite 1080p',
-                'faculty': 'Escuela de Informática - Aula 3B',
-                'date': '24/10/2026 (08:00 - 10:30)',
-                'purpose': 'Presentación de Trabajo Especial de Grado',
+                'resource': 'Video Beam Epson Aula 4',
+                'faculty': 'VPDS Barinas I - Pabellón 1',
+                'date': 'Viernes 24/10/2026 (08:30 - 10:00)',
+                'purpose': 'Defensa de Proyecto Socio-Tecnológico III',
                 'status': 'Pendiente',
             },
             {
                 'id': 102,
                 'student': 'Mariana Rivas (Estudiante)',
-                'resource': 'Laboratorio de Redes y Telecomunicaciones',
-                'faculty': 'Dpto. de Sistemas',
-                'date': '25/10/2026 (14:00 - 17:00)',
-                'purpose': 'Taller práctico de enrutamiento y conmutación',
-                'status': 'Pendiente',
-            },
-            {
-                'id': 103,
-                'student': 'Andrés Silva (Estudiante)',
-                'resource': 'Kit de 5 Adaptadores HDMI/VGA',
-                'faculty': 'Facultad de Ingeniería',
-                'date': '26/10/2026 (10:00 - 12:00)',
-                'purpose': 'Feria de Proyectos de Software',
+                'resource': 'Laboratorio de Computación 2',
+                'faculty': 'VPDS Barinas I - Edificio de Aulas',
+                'date': 'Lunes 27/10/2026 (14:00 - 16:30)',
+                'purpose': 'Taller práctico del Subproyecto Redes y Conmutación',
                 'status': 'Pendiente',
             },
         ]
 
-    # 4. Rol USUARIO (Estudiante o Miembro de la Comunidad)
+    # 4. Rol USUARIO (Estudiante de Pregrado / Postgrado)
     elif user.role == User.Role.USER:
         context['role_view'] = 'user'
         context['active_loans_count'] = 1
         context['pending_requests_count'] = 1
-        context['completed_loans_count'] = 3
+        context['completed_loans_count'] = 2
         context['my_requests'] = [
             {
-                'resource': 'Proyector Epson PowerLite 1080p',
-                'code': 'AUD-004',
-                'location': 'Laboratorio Central de Informática',
+                'resource': 'Video Beam Epson PowerLite',
+                'code': 'VB-002',
+                'location': 'Barinas I - Pabellón 1',
                 'date': '24/10/2026',
                 'status': 'Aprobada',
                 'status_class': 'badge-success',
-                'responsible': 'Prof. Ricardo Valero',
+                'responsible': 'Prof. Ricardo Valero (Jefe de Subprograma)',
             },
             {
-                'resource': 'Laptop Dell Latitude Core i7 (Taller)',
-                'code': 'CMP-012',
-                'location': 'Biblioteca Central - Sala B',
+                'resource': 'Regleta de 6 Tomas y Extensión de 10m',
+                'code': 'ACC-005',
+                'location': 'Laboratorio de Computación 1',
                 'date': '28/10/2026',
                 'status': 'Pendiente',
                 'status_class': 'badge-amber',
-                'responsible': 'Ing. Sofía Martínez',
+                'responsible': 'Ing. Carlos Rivas (Soporte Técnico)',
             },
             {
                 'resource': 'Puntero Láser y Presentador Inalámbrico',
-                'code': 'AUD-019',
-                'location': 'Decanato de Ingeniería',
+                'code': 'VB-008',
+                'location': 'Barinas I - Sala de Profesores',
                 'date': '15/10/2026',
                 'status': 'Devuelto',
                 'status_class': 'badge-cobalt',
-                'responsible': 'Prof. Ricardo Valero',
+                'responsible': 'Prof. Ricardo Valero (Jefe de Subprograma)',
             },
         ]
 
@@ -156,7 +148,7 @@ def home_view(request):
 
 def register_view(request):
     """
-    Controlador para el registro de nuevos integrantes de la universidad.
+    Controlador para el registro de nuevos integrantes de la UNELLEZ.
     Crea la cuenta, asigna el perfil correspondiente e inicia la sesión.
     """
     if request.user.is_authenticated:
@@ -169,13 +161,13 @@ def register_view(request):
             login(request, user)
             messages.success(
                 request,
-                f'¡Bienvenido a TRAMA, {user.first_name}! Tu cuenta universitaria ha sido creada exitosamente.'
+                f'¡Bienvenido a TRAMA, {user.first_name}! Tu cuenta unellista ha sido creada exitosamente.'
             )
             return redirect('home')
         else:
             messages.error(
                 request,
-                'Hubo un problema al procesar el formulario. Revisa los campos señalados.'
+                'Hubo un problema al procesar el formulario. Revisa los datos ingresados.'
             )
     else:
         form = UserRegistrationForm()
@@ -186,7 +178,6 @@ def register_view(request):
 def login_view(request):
     """
     Controlador para inicio de sesión de usuarios registrados.
-    Soporta redirección segura mediante el parámetro 'next'.
     """
     if request.user.is_authenticated:
         return redirect('home')
@@ -205,7 +196,7 @@ def login_view(request):
         else:
             messages.error(
                 request,
-                'Credenciales incorrectas. Verifica tu correo institucional y contraseña.'
+                'Credenciales incorrectas. Verifica tu correo registrado y contraseña.'
             )
     else:
         form = UserLoginForm()

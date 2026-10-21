@@ -1,15 +1,16 @@
 """
 Formularios de autenticación y registro de usuarios para TRAMA.
+Adaptado a la estructura académica de la UNELLEZ (Vicerrectorados, Programas y Subprogramas).
 
 Incluye:
-- Registro de nuevos usuarios con perfil inicial y departamento universitario.
-- Formulario de inicio de sesión con correo institucional y contraseña.
+- Registro de integrantes de la UNELLEZ con su adscripción académica.
+- Formulario de inicio de sesión con correo universitario y contraseña.
 - Formulario de edición de perfil para mantener los datos de contacto al día.
 """
 
 from django import forms
 from django.contrib.auth import authenticate, get_user_model
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 
 from .models import Profile
@@ -19,9 +20,9 @@ User = get_user_model()
 
 class UserRegistrationForm(forms.ModelForm):
     """
-    Formulario de registro para nuevos miembros de la comunidad universitaria.
-    Crea el usuario con su correo institucional y contraseña, además de capturar
-    su nombre, apellido y departamento de adscripción.
+    Formulario de registro para la comunidad unellista.
+    Captura datos de identidad, correo institucional y el Subprograma
+    académico o área de adscripción dentro del Vicerrectorado.
     """
 
     first_name = forms.CharField(
@@ -30,7 +31,7 @@ class UserRegistrationForm(forms.ModelForm):
         required=True,
         widget=forms.TextInput(attrs={
             'class': 'form-input',
-            'placeholder': 'Ej. Carlos Eduardo',
+            'placeholder': 'Ej. Alejandro José',
             'autocomplete': 'given-name',
         })
     )
@@ -40,33 +41,33 @@ class UserRegistrationForm(forms.ModelForm):
         required=True,
         widget=forms.TextInput(attrs={
             'class': 'form-input',
-            'placeholder': 'Ej. Gómez Pérez',
+            'placeholder': 'Ej. Gutiérrez Pérez',
             'autocomplete': 'family-name',
         })
     )
     email = forms.EmailField(
-        label='Correo institucional o universitario',
+        label='Correo institucional o personal',
         required=True,
         widget=forms.EmailInput(attrs={
             'class': 'form-input',
-            'placeholder': 'usuario@universidad.edu',
+            'placeholder': 'usuario@unellez.edu.ve o tu correo personal',
             'autocomplete': 'email',
         })
     )
     department = forms.CharField(
-        label='Facultad, Escuela o Departamento',
+        label='Vicerrectorado y Subprograma Académico',
         max_length=150,
         required=True,
         widget=forms.TextInput(attrs={
             'class': 'form-input',
-            'placeholder': 'Ej. Ingeniería Informática / Ciencias Básicas',
+            'placeholder': 'Ej. VPDS - Subprograma Ingeniería en Informática',
         })
     )
     role = forms.ChoiceField(
-        label='Tipo de vinculación en el campus',
+        label='Condición en la UNELLEZ',
         choices=[
-            (User.Role.USER, 'Estudiante / Miembro de la comunidad'),
-            (User.Role.MANAGER, 'Docente / Gestor de actividades o laboratorio'),
+            (User.Role.USER, 'Estudiante (Pregrado / Postgrado)'),
+            (User.Role.MANAGER, 'Docente / Jefe de Subprograma / Encargado de Laboratorio'),
         ],
         initial=User.Role.USER,
         widget=forms.Select(attrs={
@@ -111,10 +112,6 @@ class UserRegistrationForm(forms.ModelForm):
         return cleaned_data
 
     def save(self, commit=True):
-        """
-        Crea el usuario asignándole username automático a partir del email
-        y actualiza su perfil con el departamento indicado.
-        """
         user = super().save(commit=False)
         email = self.cleaned_data['email']
         user.email = email
@@ -123,7 +120,6 @@ class UserRegistrationForm(forms.ModelForm):
 
         if commit:
             user.save()
-            # El Profile se crea por signal al guardar el User, luego actualizamos los campos adicionales
             profile, _ = Profile.objects.get_or_create(user=user)
             profile.department = self.cleaned_data.get('department', '').strip()
             profile.save()
@@ -134,14 +130,13 @@ class UserRegistrationForm(forms.ModelForm):
 class UserLoginForm(AuthenticationForm):
     """
     Formulario de inicio de sesión de TRAMA.
-    Valida credenciales contra el correo electrónico y la contraseña.
     """
 
     username = forms.EmailField(
-        label='Correo electrónico',
+        label='Correo electrónico registrado',
         widget=forms.EmailInput(attrs={
             'class': 'form-input',
-            'placeholder': 'tu-correo@universidad.edu',
+            'placeholder': 'usuario@unellez.edu.ve o tu correo',
             'autocomplete': 'email',
             'autofocus': True,
         })
@@ -158,7 +153,7 @@ class UserLoginForm(AuthenticationForm):
 
 class ProfileUpdateForm(forms.ModelForm):
     """
-    Formulario para actualizar datos personales y de contacto en el perfil.
+    Formulario para actualizar datos personales del perfil unellista.
     """
 
     first_name = forms.CharField(
@@ -178,12 +173,12 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ['phone', 'department', 'bio']
         widgets = {
-            'phone': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Ej. +58 412 1234567'}),
-            'department': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Ej. Escuela de Informática'}),
-            'bio': forms.Textarea(attrs={'class': 'form-textarea', 'rows': 3, 'placeholder': 'Breve resumen sobre tu labor académica o proyectos'}),
+            'phone': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Ej. 0414-1234567'}),
+            'department': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Ej. VPDS - Subprograma Ingeniería en Informática'}),
+            'bio': forms.Textarea(attrs={'class': 'form-textarea', 'rows': 3, 'placeholder': 'Breve resumen académico o mención'}),
         }
         labels = {
-            'phone': 'Número de teléfono',
-            'department': 'Departamento o Escuela',
-            'bio': 'Descripción / Biografía',
+            'phone': 'Número de teléfono o WhatsApp',
+            'department': 'Vicerrectorado / Subprograma',
+            'bio': 'Descripción académica',
         }
