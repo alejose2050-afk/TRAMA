@@ -1,0 +1,102 @@
+<!-- ========================================================================
+     VISTA DEL GESTOR (Rol: Gestor / Docente / Responsable de Laboratorio)
+     Bandeja de aprobación y administración de recursos a su cargo
+     ======================================================================== -->
+
+<div style="padding: 36px 0 64px;">
+
+  <!-- Encabezado del Panel del Gestor -->
+  <div style="background-color: #ffffff; border: 1px solid var(--trama-border); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); margin-bottom: 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+    <div>
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+        <span class="badge badge-violet">Rol: Gestor de Recursos</span>
+        <span style="font-size: 0.85rem; color: var(--trama-text-muted);">{{ user.profile.department|default:"Departamento / Escuela" }}</span>
+      </div>
+      <h1 style="font-size: 1.85rem; font-weight: 800; color: var(--trama-navy-deep); letter-spacing: -0.02em;">
+        Panel de Gestión, {{ user.first_name }}
+      </h1>
+      <p style="font-size: 0.95rem; color: var(--trama-text-muted); margin-top: 4px;">
+        Supervisa las solicitudes de préstamo enviadas por la comunidad y coordina los recursos bajo tu responsabilidad.
+      </p>
+    </div>
+    <div style="display: flex; gap: 12px;">
+      <a href="{% url 'users:profile' %}" class="btn btn-outline">
+        Mi Perfil
+      </a>
+    </div>
+  </div>
+
+  <!-- Métricas de Supervisión del Gestor -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 36px;">
+    <div style="background: #ffffff; border: 2px solid var(--trama-amber); border-radius: var(--radius-md); padding: 22px; box-shadow: var(--shadow-xs);">
+      <div style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; color: var(--trama-amber-dark); letter-spacing: 0.04em;">Pendientes por Aprobar</div>
+      <div style="font-size: 2.2rem; font-weight: 800; color: var(--trama-amber-dark); margin: 6px 0;">{{ pending_approvals_count }}</div>
+      <div style="font-size: 0.84rem; color: var(--trama-text-muted);">Requieren tu autorización para entrega</div>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid var(--trama-border); border-radius: var(--radius-md); padding: 22px; box-shadow: var(--shadow-xs);">
+      <div style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; color: var(--trama-cobalt); letter-spacing: 0.04em;">Recursos a tu Cargo</div>
+      <div style="font-size: 2.2rem; font-weight: 800; color: var(--trama-navy-deep); margin: 6px 0;">{{ managed_resources_count }}</div>
+      <div style="font-size: 0.84rem; color: var(--trama-text-muted);">Equipos y espacios asignados a tu área</div>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid var(--trama-border); border-radius: var(--radius-md); padding: 22px; box-shadow: var(--shadow-xs);">
+      <div style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; color: var(--trama-violet); letter-spacing: 0.04em;">Actividades Vinculadas</div>
+      <div style="font-size: 2.2rem; font-weight: 800; color: var(--trama-navy-deep); margin: 6px 0;">{{ active_activities_count }}</div>
+      <div style="font-size: 0.84rem; color: var(--trama-text-muted);">Talleres, clases y eventos académicos</div>
+    </div>
+  </div>
+
+  <!-- Bandeja de Solicitudes Recibidas para Aprobación -->
+  <div style="background: #ffffff; border: 1px solid var(--trama-border); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-sm); margin-bottom: 32px;">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;">
+      <div>
+        <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--trama-navy-deep);">Bandeja de Aprobación de Préstamos</h2>
+        <p style="font-size: 0.88rem; color: var(--trama-text-muted);">Evalúa las solicitudes de estudiantes y confirma la disponibilidad de tus recursos.</p>
+      </div>
+      <span class="badge badge-amber">{{ pending_approvals_count }} pendientes</span>
+    </div>
+
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--trama-border); color: var(--trama-text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em;">
+            <th style="padding: 12px 14px;">Solicitante</th>
+            <th style="padding: 12px 14px;">Recurso</th>
+            <th style="padding: 12px 14px;">Fecha y Horario</th>
+            <th style="padding: 12px 14px;">Motivo / Actividad</th>
+            <th style="padding: 12px 14px; text-align: center;">Acción de Autorización</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for req in pending_requests %}
+            <tr style="border-bottom: 1px solid var(--trama-border);">
+              <td style="padding: 14px; font-weight: 700; color: var(--trama-navy-deep);">
+                {{ req.student }}
+                <div style="font-size: 0.78rem; font-weight: 400; color: var(--trama-text-muted);">{{ req.faculty }}</div>
+              </td>
+              <td style="padding: 14px; color: var(--trama-navy-surface); font-weight: 600;">{{ req.resource }}</td>
+              <td style="padding: 14px; color: var(--trama-text-muted);">{{ req.date }}</td>
+              <td style="padding: 14px; color: var(--trama-navy-surface); max-width: 260px;">{{ req.purpose }}</td>
+              <td style="padding: 14px; text-align: center; white-space: nowrap;">
+                <button type="button" class="btn btn-primary" style="padding: 6px 12px; font-size: 0.82rem; margin-right: 6px;" onclick="alert('Solicitud #{{ req.id }} aprobada. Se notificará al estudiante.');">
+                  ✓ Aprobar
+                </button>
+                <button type="button" class="btn btn-outline" style="padding: 6px 12px; font-size: 0.82rem; color: var(--trama-danger); border-color: #fca5a5;" onclick="alert('Solicitud #{{ req.id }} rechazada.');">
+                  ✕ Rechazar
+                </button>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5" style="padding: 24px; text-align: center; color: var(--trama-text-muted);">
+                No tienes solicitudes pendientes de revisión.
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,119 @@
+<!-- ========================================================================
+     VISTA DEL ADMINISTRADOR (Rol: Administrador)
+     Supervisión global de usuarios, roles, métricas y acceso al Django Admin
+     ======================================================================== -->
+
+<div style="padding: 36px 0 64px;">
+
+  <!-- Encabezado del Panel del Administrador -->
+  <div style="background-color: #ffffff; border: 1px solid var(--trama-border); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); margin-bottom: 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+    <div>
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+        <span class="badge badge-amber">Rol: Administrador Global</span>
+        <span style="font-size: 0.85rem; color: var(--trama-text-muted);">Control y Auditoría de la Plataforma</span>
+      </div>
+      <h1 style="font-size: 1.85rem; font-weight: 800; color: var(--trama-navy-deep); letter-spacing: -0.02em;">
+        Consola de Administración, {{ user.first_name }}
+      </h1>
+      <p style="font-size: 0.95rem; color: var(--trama-text-muted); margin-top: 4px;">
+        Supervisa los miembros registrados, permisos de acceso y administra las bases de datos de TRAMA.
+      </p>
+    </div>
+    <div style="display: flex; gap: 12px;">
+      <a href="/admin/" target="_blank" class="btn btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+        Abrir Django Admin (B.7)
+      </a>
+      <a href="{% url 'users:profile' %}" class="btn btn-outline">
+        Mi Perfil
+      </a>
+    </div>
+  </div>
+
+  <!-- Métricas de Usuarios y Auditoría -->
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 36px;">
+    <div style="background: #ffffff; border: 1px solid var(--trama-border); border-radius: var(--radius-md); padding: 22px; box-shadow: var(--shadow-xs);">
+      <div style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; color: var(--trama-navy-deep); letter-spacing: 0.04em;">Usuarios Totales</div>
+      <div style="font-size: 2.2rem; font-weight: 800; color: var(--trama-navy-deep); margin: 6px 0;">{{ total_users }}</div>
+      <div style="font-size: 0.84rem; color: var(--trama-text-muted);">Cuentas registradas en la base de datos</div>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid var(--trama-border); border-radius: var(--radius-md); padding: 22px; box-shadow: var(--shadow-xs);">
+      <div style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; color: var(--trama-violet); letter-spacing: 0.04em;">Docentes / Gestores</div>
+      <div style="font-size: 2.2rem; font-weight: 800; color: var(--trama-violet); margin: 6px 0;">{{ users_managers }}</div>
+      <div style="font-size: 0.84rem; color: var(--trama-text-muted);">Con permisos de gestión y aprobación</div>
+    </div>
+
+    <div style="background: #ffffff; border: 1px solid var(--trama-border); border-radius: var(--radius-md); padding: 22px; box-shadow: var(--shadow-xs);">
+      <div style="font-size: 0.82rem; font-weight: 700; text-transform: uppercase; color: var(--trama-cobalt); letter-spacing: 0.04em;">Estudiantes / Miembros</div>
+      <div style="font-size: 2.2rem; font-weight: 800; color: var(--trama-cobalt); margin: 6px 0;">{{ users_students }}</div>
+      <div style="font-size: 0.84rem; color: var(--trama-text-muted);">Usuarios solicitantes activos</div>
+    </div>
+  </div>
+
+  <!-- Tarjeta de Acceso y Gestión de Base de Datos -->
+  <div style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%); border: 1px solid var(--trama-border); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+    <div>
+      <span class="badge badge-amber" style="margin-bottom: 8px;">Requisito B.7 Configurado</span>
+      <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--trama-navy-deep);">
+        Administración de Tablas y Base de Datos (PostgreSQL)
+      </h3>
+      <p style="font-size: 0.9rem; color: var(--trama-text-muted); max-width: 650px; margin-top: 4px;">
+        Desde el Django Admin puedes crear nuevos administradores, asignar roles personalizados, inspeccionar los perfiles de usuario y auditar las tablas de la aplicación.
+      </p>
+    </div>
+    <a href="/admin/" target="_blank" class="btn btn-primary btn-lg">
+      Gestionar Tablas en Django Admin &rarr;
+    </a>
+  </div>
+
+  <!-- Tabla de Usuarios Registrados Recientemente -->
+  <div style="background: #ffffff; border: 1px solid var(--trama-border); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-sm);">
+    <div style="margin-bottom: 22px;">
+      <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--trama-navy-deep);">Últimos Usuarios Registrados</h2>
+      <p style="font-size: 0.88rem; color: var(--trama-text-muted);">Auditoría de las cuentas más recientes creadas en la plataforma.</p>
+    </div>
+
+    <div style="overflow-x: auto;">
+      <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--trama-border); color: var(--trama-text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em;">
+            <th style="padding: 12px 14px;">Nombre y Apellido</th>
+            <th style="padding: 12px 14px;">Correo Institucional</th>
+            <th style="padding: 12px 14px;">Rol Asignado</th>
+            <th style="padding: 12px 14px;">Departamento</th>
+            <th style="padding: 12px 14px;">Fecha de Registro</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for u in latest_users %}
+            <tr style="border-bottom: 1px solid var(--trama-border);">
+              <td style="padding: 14px; font-weight: 700; color: var(--trama-navy-deep);">{{ u.get_full_name|default:u.username }}</td>
+              <td style="padding: 14px; color: var(--trama-text-muted);">{{ u.email }}</td>
+              <td style="padding: 14px;">
+                {% if u.role == 'admin' %}
+                  <span class="badge badge-amber">Administrador</span>
+                {% elif u.role == 'manager' %}
+                  <span class="badge badge-violet">Gestor</span>
+                {% elif u.role == 'visitor' %}
+                  <span class="badge badge-subtle">Visitante</span>
+                {% else %}
+                  <span class="badge badge-cobalt">Usuario</span>
+                {% endif %}
+              </td>
+              <td style="padding: 14px; color: var(--trama-navy-surface);">{{ u.profile.department|default:"Sin departamento" }}</td>
+              <td style="padding: 14px; color: var(--trama-text-muted); font-size: 0.84rem;">{{ u.date_joined|date:"d/m/Y H:i" }}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5" style="padding: 24px; text-align: center; color: var(--trama-text-muted);">
+                No hay usuarios registrados aún.
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
