@@ -1,117 +1,230 @@
 # TRAMA
 ## Plataforma Integral de Gestión y Articulación de Recursos Universitarios
+### Universidad Nacional Experimental de los Llanos Occidentales «Ezequiel Zamora» (UNELLEZ) — VPDS Barinas
 
-### 1. Introducción
+---
+
+## 1. Génesis y Origen de TRAMA
+
+**TRAMA** no surge como una idea aislada, sino como el punto de convergencia y evolución de tres vertientes y experiencias de desarrollo previas:
+
+1. **Gestión y Organización de Tareas (Proyecto de Semestre Anterior):** La experiencia previa en el desarrollo de herramientas para el seguimiento de tareas, asignación de responsabilidades y flujos de trabajo secuenciales sentó las bases para el control de estados y autorizaciones.
+2. **Administración de Recursos y Gestión (Proyecto Personal):** El diseño de una solución personal orientada al control financiero, balances y optimización de activos aportó la lógica para el seguimiento de disponibilidad, inventario y rendición de cuentas de bienes.
+3. **Planificación y Coordinación Universitaria (Proyectos de Grado y Subproyectos):** La necesidad cotidiana de estudiantes y docentes de la UNELLEZ de coordinar defensas de grado, prácticas académicas y disponer de recursos tecnológicos (video beams, salas de cómputo, auditorios) sin fricciones ni desorganización.
+
+La integración de estas tres visiones dio nacimiento a **TRAMA**: una plataforma centralizada que articula el préstamo de bienes institucionales, la validación docente y el respaldo a los subproyectos académicos de la comunidad unellista.
+
+---
+
+## 2. Introducción
 
 TRAMA es una plataforma web orientada a facilitar la organización de actividades universitarias y la coordinación de recursos entre los miembros de la comunidad académica. Su propósito es centralizar la publicación de recursos, la gestión de solicitudes y el seguimiento de préstamos relacionados con actividades universitarias.
 
-Para orientar su desarrollo, se utilizará la **metodología de desarrollo en V**, siguiendo la rama descendente para definir progresivamente los requisitos, la arquitectura y el diseño del sistema antes de comenzar la implementación del código.
+Para orientar su desarrollo, se utiliza la **metodología de desarrollo en V**, siguiendo la rama descendente para definir progresivamente los requisitos, la arquitectura y el diseño del sistema antes de comenzar la implementación del código.
 
-## 2. Metodología de desarrollo en V
+---
 
-### 2.1. Análisis de Requisitos (*Requirement Gathering*)
+## 3. Metodología de Desarrollo en V
 
-En esta etapa se identificarán las necesidades de los usuarios y las funcionalidades que deberá ofrecer TRAMA.
+```
+  [1. Requisitos del Sistema]                 [Pruebas de Aceptación]
+         \                                            /
+      [2. Análisis del Sistema]               [Pruebas de Sistema]
+             \                                    /
+          [3. Diseño de Arquitectura]     [Pruebas de Integración]
+                 \                            /
+              [4. Diseño Modular]     [Pruebas Unitarias]
+                     \                    /
+                      [5. Punto Inflexión]
+                               |
+                        [6. Codificación]
+```
 
-Entre los requisitos funcionales iniciales se encuentran:
+### 3.1. Análisis de Requisitos (*Requirement Gathering*)
 
-- Registro, inicio de sesión y gestión de usuarios.
-- Administración de roles y permisos.
-- Publicación y consulta de recursos universitarios disponibles.
-- Creación y organización de actividades universitarias.
-- Solicitud y coordinación de préstamos de recursos.
-- Seguimiento del estado de las solicitudes.
-- Gestión de presupuestos asociados a las actividades.
-- Administración general de la plataforma.
+En esta etapa se identificaron las necesidades de los usuarios y las funcionalidades requeridas para TRAMA en el contexto universitario:
 
-El sistema deberá garantizar que las solicitudes de recursos requieran la aceptación de la persona responsable antes de considerarse aprobadas. También se tendrán en cuenta requisitos no funcionales como la seguridad, la facilidad de uso, la integridad de los datos y la mantenibilidad del software.
+* **Registro, inicio de sesión y gestión de perfiles:** Identificación por correo institucional, cédula de identidad, teléfono y adscripción al subprograma académico.
+* **Administración de roles y permisos (RBAC):** Separación estricta de privilegios entre Administrador, Gestor, Usuario y Visitante.
+* **Publicación y consulta de recursos disponibles:** Catálogo de equipos audiovisuales, laboratorios y espacios físicos de la sede.
+* **Coordinación de solicitudes y préstamos:** Solicitud formal de equipos vinculada a subproyectos académicos, con validación de disponibilidad y aprobación del responsable.
+* **Seguimiento del estado de solicitudes:** Trazabilidad en tiempo real (*Pendiente*, *Aprobado*, *Rechazado*, *Finalizado*).
+* **Gestión de presupuestos y recursos asociados:** Estimación y control de insumos requeridos para eventos y prácticas académicas.
+* **Administración y auditoría:** Control total sobre las tablas de base de datos a través de una consola administrativa institucional.
 
-### 2.2. Análisis del Sistema (*System Analysis*)
+### 3.2. Análisis del Sistema (*System Analysis*)
 
-En esta fase se definirá el comportamiento general de TRAMA y la forma en que interactuarán sus componentes.
+La plataforma se concibe como un sistema modular interactivo donde convergen cuatro perfiles claramente diferenciados:
 
-La plataforma contará con una interfaz web para los usuarios, un backend encargado de procesar las operaciones y una base de datos para almacenar la información.
+* **Administrador:** Supervisa la infraestructura del sistema, gestiona cuentas de usuario, audita transacciones y administra las tablas del modelo relacional.
+* **Gestor (Docente / Jefe de Subprograma):** Supervisa los recursos a su cargo (ej. laboratorios de computación o equipos de jefatura) y aprueba o rechaza solicitudes de préstamo para las actividades y subproyectos.
+* **Usuario (Estudiante):** Consulta el catálogo de inventario disponible en el campus, solicita préstamos para sus subproyectos y defensas de grado, y hace seguimiento de sus solicitudes.
+* **Visitante:** Miembro de la comunidad universitaria o externo que consulta la oferta institucional pública de recursos sin necesidad de iniciar sesión.
 
-El funcionamiento general contemplará el registro de usuarios, la publicación de recursos, la organización de actividades y la creación y gestión de solicitudes. Cada operación estará sujeta a las reglas del sistema y a los permisos correspondientes al rol del usuario.
+### 3.3. Diseño de Software y Arquitectura (*Software Design*)
 
-Se contemplan los siguientes perfiles:
+TRAMA adopta una arquitectura cliente-servidor robusta, mantenible y desacoplada:
 
-- **Administrador:** supervisa la plataforma y administra sus configuraciones y registros.
-- **Gestor:** organiza actividades y coordina los recursos relacionados con ellas, de acuerdo con sus permisos.
-- **Usuario:** consulta recursos, publica los que puede ofrecer y realiza solicitudes.
-- **Visitante:** accede únicamente a las funcionalidades públicas permitidas.
+* **Backend:** Python 3.12 y Django 5.2, implementando controladores basados en vistas modulares, modelos relacionales y lógica de autenticación segura.
+* **Base de Datos:** PostgreSQL 17, garantizando integridad referencial, transaccionalidad ACID y soporte para consultas concurrentes.
+* **Frontend:** Interfaz web responsiva con sistema de diseño institucional (*Design System*) basado en Vanilla CSS optimizado, tipografía oficial (*Plus Jakarta Sans*) y cromática institucional UNELLEZ. Preparado para integración progresiva con React / Vite.
+* **Entorno de Contenedores:** Docker y Docker Compose para reproducibilidad exacta del entorno tanto en desarrollo como en producción.
+* **Control de Versiones:** Git con flujo de trabajo estructurado por ramas y convenciones de *Conventional Commits*.
 
-Una misma persona podrá ofrecer recursos y solicitar otros, siempre que cumpla las condiciones establecidas por el sistema.
+### 3.4. Diseño de Módulos (*Module Design*)
 
-### 2.3. Diseño de Software y Arquitectura (*Software Design*)
+El sistema se estructura en los siguientes módulos fundamentales:
 
-En esta etapa se establecerá la arquitectura tecnológica y la comunicación entre los componentes de TRAMA.
+1. **Usuarios y Autenticación (`users`):** Modelo `User` personalizado con roles nativos, relación uno-a-uno con modelo `Profile`, formularios validados y middleware de sesión.
+2. **Recursos e Inventario (`resources`):** Catálogo de bienes (video beams, salas de computación, accesorios) con código de bien institucional, sede y estado de operatividad.
+3. **Solicitudes y Préstamos (`loans`):** Circuito de solicitud por horario, vinculación a subproyecto académico, validación docente y registro de entregas/devoluciones.
+4. **Actividades y Subproyectos:** Planificación de eventos académicos, jornadas, clases prácticas y defensas de proyecto vinculadas al uso de bienes.
+5. **Presupuestos y Planificación:** Estimación y control de costos asociados al uso o mantenimiento de recursos.
+6. **Consola Administrativa:** Panel Django Admin personalizado institucionalmente con filtros, búsquedas y permisos jerárquicos.
 
-Se propone una arquitectura cliente-servidor dividida en las siguientes partes:
+### 3.5. Punto de Inflexión
 
-- **Frontend:** React y Vite para construir la interfaz web y facilitar la interacción con los usuarios.
-- **Backend:** Python, Django y Django REST Framework para implementar la lógica de negocio, la autenticación, los permisos y las API.
-- **Base de datos:** PostgreSQL para almacenar usuarios, actividades, recursos, solicitudes y presupuestos.
-- **Entorno de desarrollo:** Docker y Docker Compose para configurar y ejecutar los servicios de forma reproducible.
-- **Control de versiones:** Git y GitHub para registrar los cambios, gestionar ramas y mantener el historial del desarrollo.
+El punto de inflexión marcó la culminación formal de la fase de planificación y especificación técnica, dando paso inmediato a la construcción del software ejecutable sobre infraestructura de contenedores.
 
-La arquitectura mantendrá separadas la interfaz, las reglas de negocio y la persistencia de datos, facilitando las pruebas, el mantenimiento y la incorporación de nuevas funcionalidades.
+### 3.6. Codificación (*Coding*)
 
-Estas tecnologías constituyen la propuesta inicial y se verificarán durante la preparación del entorno.
+La construcción del código se ejecutó de forma incremental y verificada en cada etapa:
 
-### 2.4. Diseño de Módulos (*Module Design*)
+1. Orquestación del entorno de contenedores Docker (PostgreSQL 17 + Django 5.2).
+2. Definición del modelo relacional de usuarios y roles con soporte para adscripción a la UNELLEZ.
+3. Creación y ejecución de migraciones en la base de datos PostgreSQL.
+4. Parametrización del panel administrativo de Django con identidad institucional.
+5. Maquetación del sistema de plantillas adaptativo según privilegios (RBAC).
 
-En esta fase se detallará la estructura interna de cada módulo, sus responsabilidades, los modelos de datos y las reglas que deberá cumplir.
+---
 
-Los módulos iniciales previstos son:
+## 4. Estado Actual: Versión 1.0 Implementada
 
-1. **Usuarios y autenticación:** registro, inicio de sesión, perfiles y asignación de roles.
-2. **Actividades:** creación, consulta, actualización y seguimiento de actividades universitarias.
-3. **Recursos:** publicación, descripción, consulta y administración de recursos disponibles.
-4. **Solicitudes y préstamos:** registro de solicitudes, aceptación o rechazo por parte del responsable y seguimiento de los estados.
-5. **Presupuestos:** registro y consulta de presupuestos vinculados a actividades.
-6. **Administración:** gestión de registros y supervisión de la plataforma mediante permisos administrativos.
+La **Versión 1.0 de TRAMA** se encuentra completamente desplegada y funcional, cumpliendo con la totalidad de los objetivos de la primera fase:
 
-También se definirán las relaciones entre los modelos de datos. Por ejemplo, una actividad podrá estar asociada a varias solicitudes de recursos, mientras que cada solicitud deberá identificar el recurso solicitado, la persona solicitante y su estado.
+* [x] **Infraestructura Contenerizada:** Orquestación con Docker Compose (`trama-backend` y `trama-db`).
+* [x] **Base de Datos Relacional:** PostgreSQL 17 conectado y sincronizado mediante migraciones Django.
+* [x] **Módulo de Usuarios (`users`):**
+  * Modelo `User` personalizado heredando de `AbstractUser` con soporte para roles (`admin`, `manager`, `user`, `visitor`).
+  * Modelo `Profile` con cédula, teléfono, subprograma y subproyecto.
+  * Formulario de Registro con validación de correo institucional y contraseñas.
+  * Formulario de Inicio de Sesión y cierre de sesión seguro.
+  * Vista de Perfil de Usuario para actualización de datos académicos.
+* [x] **Django Admin Institucional:**
+  * Personalizado bajo el título **`TRAMA — Administración UNELLEZ`**.
+  * Edición de usuarios con formulario inline del perfil académico.
+  * Filtros por rol, estado activo y staff; buscador por correo, usuario y nombre.
+* [x] **Vistas y Plantillas Adaptativas según Roles:**
+  * **Visitante:** Landing page con catálogo público y presentación de la red académica.
+  * **Estudiante / Usuario:** Panel con resumen de solicitudes, préstamos activos y recursos asignados.
+  * **Gestor / Docente:** Bandeja de gestión para aprobación o rechazo de solicitudes de subproyectos.
+  * **Administrador:** Consola de supervisión con métricas de la base de datos y acceso al panel administrativo.
+* [x] **Identidad Visual UNELLEZ:** Paleta cromática oficial (Cobalto `#2563EB`, Ámbar `#F59E0B`, Azul Noche `#0B192C`), tipografía *Plus Jakarta Sans* y hoja de estilos `trama.css` modular y optimizada (316 líneas, 0 advertencias).
 
-Las reglas de validación evitarán solicitudes inconsistentes, operaciones no autorizadas y aprobaciones que no hayan sido confirmadas por la persona responsable.
+---
 
-### 2.5. Punto de Inflexión
+## 5. Cuentas de Prueba para Evaluación
 
-El punto de inflexión representa la transición entre la planificación y el diseño del sistema, en la rama descendente, y la construcción del software.
+Para facilitar la evaluación y demostración interactiva de los diferentes niveles de acceso y navegación basada en roles, se encuentran preconfiguradas las siguientes credenciales en la base de datos:
 
-Antes de comenzar la codificación, se revisarán los requisitos, la arquitectura propuesta, los módulos definidos y las tecnologías seleccionadas. Esta revisión permitirá detectar inconsistencias y reducir cambios importantes durante la implementación.
+| Rol del Sistema | Nombre de Usuario / Titular | Correo Electrónico | Contraseña | Vistas y Capacidades Evaluables |
+| :--- | :--- | :--- | :--- | :--- |
+| **Administrador** | Admin TRAMA | `admin@trama.local` | `TramaDev2026!` | Consola global, métricas de PostgreSQL y acceso al [Django Admin](http://127.0.0.1:8000/admin/). |
+| **Gestor / Docente** | Prof. Carlos Mendoza | `docente@trama.local` | `TramaDev2026!` | Panel de gestión, bandeja de aprobación de solicitudes y control de recursos del subprograma. |
+| **Estudiante** | María Fernández | `estudiante@trama.local` | `TramaDev2026!` | Panel del estudiante, estado de solicitudes personales y vinculación a subproyectos. |
+| **Visitante** | *Público General* | *(Sin iniciar sesión)* | N/A | Consulta del catálogo de recursos, descripción de la plataforma y accesos a registro/login. |
 
-Una vez validada la planificación, se iniciará el desarrollo progresivo de TRAMA, comenzando por la configuración del entorno, la estructura del backend, la autenticación y los componentes fundamentales del sistema.
+> **Nota:** También se encuentran activas las cuentas de desarrollo alternativas `alejose2050@gmail.com` (Gestor) y `alejandro.g@universidad.edu` (Estudiante), ambas con la contraseña `TramaDev2026!`.
 
-### 2.6. Codificación (*Coding*)
+---
 
-En esta etapa se construirá el código fuente de TRAMA siguiendo los diseños y especificaciones establecidos previamente.
+## 6. Guía de Instalación y Ejecución con Docker
 
-El desarrollo se organizará por módulos y se gestionará mediante Git y GitHub, utilizando ramas para separar las funcionalidades y registrando los cambios mediante commits descriptivos.
+### Requisitos Previos
+* [Docker Desktop](https://www.docker.com/) instalado y en ejecución.
+* Git instalado en el sistema.
 
-La implementación comenzará con:
+### Instrucciones de Ejecución
 
-- Preparación y configuración del entorno de desarrollo con Docker.
-- Creación de la estructura del proyecto Django.
-- Configuración de la base de datos.
-- Desarrollo del registro, inicio de sesión y gestión de roles.
-- Configuración del panel administrativo de Django.
-- Construcción de las vistas y la interfaz web.
-- Implementación progresiva de los módulos de actividades, recursos, solicitudes y presupuestos.
+1. **Clonar el repositorio:**
+   ```bash
+   git clone https://github.com/alejose2050-afk/TRAMA.git
+   cd TRAMA
+   ```
 
-Cada componente se comprobará durante su desarrollo para detectar errores y facilitar su integración. Posteriormente, se realizarán pruebas funcionales y de integración relacionadas con los requisitos definidos.
+2. **Iniciar los servicios con Docker Compose:**
+   ```bash
+   docker compose up -d
+   ```
 
-## 3. Organización del desarrollo
+3. **Verificar el estado de los contenedores:**
+   ```bash
+   docker compose ps
+   ```
+   *Deberá observar `trama-backend` (puerto `8000`) y `trama-db` (puerto `5432`) en estado saludable (`Up`).*
 
-El proyecto se desarrollará de forma incremental, priorizando primero la infraestructura y las funciones esenciales. Las funcionalidades se incorporarán progresivamente y se documentarán los cambios importantes.
+4. **Acceder a la aplicación:**
+   * **Plataforma Web (Portal TRAMA):** [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+   * **Panel Administrativo (Django Admin):** [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
 
-La rama `main` se reservará para versiones estables del proyecto, mientras que las ramas de trabajo permitirán desarrollar y revisar funcionalidades antes de integrarlas.
+5. **Detener los servicios cuando sea necesario:**
+   ```bash
+   docker compose down
+   ```
 
-## 4. Estado actual del proyecto
+---
 
-TRAMA se encuentra en la fase inicial de preparación del entorno y organización del desarrollo. Los requisitos y módulos descritos corresponden a la planificación inicial; su implementación y validación se realizarán progresivamente.
+## 7. Estructura del Proyecto
 
-## 5. Objetivo de la metodología
+```text
+trama-platform/
+├── backend/                        # Código fuente del backend Django
+│   ├── config/                     # Configuración principal del proyecto
+│   │   ├── asgi.py
+│   │   ├── settings.py             # Configuración central (DB, Auth, Apps)
+│   │   ├── urls.py                 # Enrutador global y títulos del Admin
+│   │   └── wsgi.py
+│   ├── static/                     # Archivos estáticos institucionales
+│   │   ├── css/
+│   │   │   └── trama.css           # Sistema de diseño e identidad visual (UNELLEZ)
+│   │   └── img/
+│   │       └── trama_logo.png      # Logo oficial de TRAMA
+│   ├── templates/                  # Sistema de plantillas HTML
+│   │   ├── base.html               # Plantilla maestra con navbar institucional
+│   │   ├── home.html               # Despachador de vistas por rol
+│   │   ├── roles/                  # Vistas modulares según perfil
+│   │   │   ├── dashboard_admin.html
+│   │   │   ├── dashboard_manager.html
+│   │   │   ├── dashboard_user.html
+│   │   │   └── landing_visitor.html
+│   │   └── users/                  # Vistas de autenticación
+│   │       ├── login.html
+│   │       ├── profile.html
+│   │       └── register.html
+│   ├── users/                      # Aplicación Django de Usuarios y Autenticación
+│   │   ├── admin.py                # Configuración de tablas en Django Admin
+│   │   ├── forms.py                # Formularios de Registro, Login y Perfil
+│   │   ├── models.py               # Modelos User y Profile con roles
+│   │   ├── urls.py                 # Rutas de autenticación
+│   │   └── views.py                # Controladores y lógica RBAC
+│   ├── Dockerfile                  # Imagen Docker para el entorno Python
+│   ├── manage.py
+│   └── requirements.txt            # Dependencias del backend
+├── docker-compose.yml              # Orquestación de servicios (Django + PostgreSQL)
+└── README.md                       # Documentación técnica y académica del proyecto
+```
 
-La aplicación de la metodología de desarrollo en V permitirá mantener una relación clara entre los requisitos, el diseño, la implementación y las pruebas del sistema. De esta manera, se busca construir una plataforma organizada, segura, mantenible y adaptada a las necesidades de la comunidad universitaria.
+---
+
+## 8. Organización y Flujo de Trabajo
+
+El desarrollo se gestiona de forma incremental:
+* La rama **`main`** alberga las versiones estables y verificadas del software.
+* Se utilizan ramas de funcionalidad (*feature branches*) para el desarrollo de módulos específicos.
+* Cada cambio significativo se documenta mediante commits semánticos y verificación cruzada en contenedores.
+
+---
+
+## 9. Objetivo de la Metodología
+
+La aplicación sistemática de la **metodología de desarrollo en V** garantiza la correspondencia directa entre los requisitos levantados, la arquitectura tecnológica, el código implementado y las futuras fases de pruebas unitarias y de integración. De esta manera, se asegura la construcción de una plataforma estable, segura, escalable y estrechamente vinculada a las necesidades operativas de la comunidad académica de la UNELLEZ.
