@@ -1,0 +1,147 @@
+[
+{
+  "model": "users.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$qbpYuyb06n8eCUzzwsmcrf$lEpE0ALSsDjWDb4wguBbuqFLBkkFQvfDb2lXkwCy3cQ=",
+    "last_login": "2026-10-21T15:23:14.141Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "Admin",
+    "last_name": "TRAMA",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-10-20T18:55:22.860Z",
+    "email": "admin@trama.local",
+    "role": "admin",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$ZuX5DKNvJMIlTsfN8RN1Hk$sezGwvM3GNCXVjf+BoanbV7X8qkgnSm7BQJcW3wo8SY=",
+    "last_login": "2026-10-21T14:44:38.403Z",
+    "is_superuser": false,
+    "username": "alejandro.g",
+    "first_name": "Alejandro",
+    "last_name": "Gutiérrez",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-10-20T19:29:32.713Z",
+    "email": "alejandro.g@universidad.edu",
+    "role": "user",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$SLE46lYagPbMeWETpioMd4$8fivJiVvKAHj44iDq9kRIv4Qvsum+UCXfYIIApwT9GQ=",
+    "last_login": "2026-10-21T14:23:14.136Z",
+    "is_superuser": false,
+    "username": "alejose2050",
+    "first_name": "Jose",
+    "last_name": "Gutiérrez",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-10-21T14:23:13.558Z",
+    "email": "alejose2050@gmail.com",
+    "role": "manager",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$zNHnqEI37Iq4HHuZ5sZYz3$rfarjkJO1Hsh0QHNje4Aay/lRtINsqeS1huyu9hA2Ws=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "docente.unellez",
+    "first_name": "Prof. Carlos",
+    "last_name": "Mendoza",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-10-21T15:37:30.223Z",
+    "email": "docente@trama.local",
+    "role": "manager",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$xeyR2VWcU9CufjCRlDlJq1$ozQJZIJOtZd/PZvcPS/y2FL+dOI2zXzoQt1IWo7X2Gc=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "estudiante.unellez",
+    "first_name": "María",
+    "last_name": "Fernández",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-10-21T15:37:30.767Z",
+    "email": "estudiante@trama.local",
+    "role": "user",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "users.profile",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "phone": "",
+    "department": "",
+    "bio": ""
+  }
+},
+{
+  "model": "users.profile",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "phone": "",
+    "department": "",
+    "bio": ""
+  }
+},
+{
+  "model": "users.profile",
+  "pk": 3,
+  "fields": {
+    "user": 3,
+    "phone": "",
+    "department": "",
+    "bio": ""
+  }
+},
+{
+  "model": "users.profile",
+  "pk": 4,
+  "fields": {
+    "user": 4,
+    "phone": "",
+    "department": "",
+    "bio": ""
+  }
+},
+{
+  "model": "users.profile",
+  "pk": 5,
+  "fields": {
+    "user": 5,
+    "phone": "",
+    "department": "",
+    "bio": ""
+  }
+}
+]

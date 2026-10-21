@@ -11,7 +11,7 @@ services:
     environment:
       POSTGRES_DB: trama
       POSTGRES_USER: trama_user
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en el archivo .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-Gutix_TRAMA_2026}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -26,10 +26,12 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
     container_name: trama-backend
     restart: unless-stopped
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py loaddata initial_users &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend:/app
     ports:
@@ -38,7 +40,7 @@ services:
       - DEBUG=1
       - DB_NAME=trama
       - DB_USER=trama_user
-      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - DB_PASSWORD=${POSTGRES_PASSWORD:-Gutix_TRAMA_2026}
       - DB_HOST=db
       - DB_PORT=5432
     depends_on:
