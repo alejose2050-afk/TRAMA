@@ -20,6 +20,11 @@ urlpatterns = [
     path('usuarios/', include('users.urls', namespace='users')),
 ]
 
+# Personalización institucional del Panel de Administración (UNELLEZ)
+admin.site.site_header = "TRAMA — Administración UNELLEZ"
+admin.site.site_title = "Panel Administrativo TRAMA"
+admin.site.index_title = "Gestión de Tablas y Base de Datos del Campus"
+
 # En modo de desarrollo, permite servir archivos estáticos y multimedia
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

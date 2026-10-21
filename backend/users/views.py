@@ -3,11 +3,11 @@ Vistas para la gestión de usuarios, autenticación y navegación principal de T
 Contextualizado a la UNELLEZ (Universidad Nacional Experimental de los Llanos Occidentales Ezequiel Zamora).
 
 Controladores incluidos:
-- home_view: Vista adaptativa basada en roles (RBAC) para cumplir la pauta B.8:
+- home_view: Vista adaptativa basada en roles de usuario (RBAC):
     * Visitante: Portada y catálogo de consulta para la comunidad unellista.
     * Usuario (Estudiante): Panel de solicitudes personales de equipos y espacios para subproyectos.
     * Gestor (Docente/Jefe de Subprograma): Bandeja de aprobación de préstamos y recursos a su cargo.
-    * Administrador: Métricas globales del sistema piloto y acceso directo al Django Admin.
+    * Administrador: Métricas globales del sistema piloto y consola de control.
 - register_view: Procesa el registro con rol y adscripción a la UNELLEZ.
 - login_view: Autentica al usuario mediante correo y contraseña.
 - logout_view: Cierra la sesión activa y redirige al inicio.
@@ -27,7 +27,7 @@ User = get_user_model()
 def home_view(request):
     """
     Página principal de TRAMA.
-    Renderiza la vista correspondiente según el rol o privilegio del usuario en la UNELLEZ (B.8).
+    Renderiza la vista correspondiente según el rol o privilegio del usuario en la UNELLEZ.
     """
     user = request.user
     context = {}

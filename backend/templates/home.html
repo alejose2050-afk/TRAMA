@@ -15,7 +15,7 @@
 
 {% block content %}
 <div class="trama-container">
-  <!-- Renderizado condicional según el rol o privilegio del usuario (Pauta B.8) -->
+  <!-- Renderizado condicional según el rol o privilegio del usuario -->
   {% if role_view == 'admin' %}
     {% include 'roles/dashboard_admin.html' %}
   {% elif role_view == 'manager' %}
