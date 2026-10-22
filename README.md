@@ -2,6 +2,9 @@
 ## Plataforma Integral de Gestión y Articulación de Recursos Universitarios
 ### Universidad Nacional Experimental de los Llanos Occidentales «Ezequiel Zamora» (UNELLEZ) — VPDS Barinas
 
+> ### 📌 Nota para el Docente / Evaluación Académica
+> **Profesor:** Aquí se encuentran implementadas y organizadas las condiciones previstas que colocó en el Classroom para el desarrollo del proyecto. Si de alguna manera esta primera fase se aprecia más desarrollada de lo pedido inicialmente, el motivo es porque estoy a punto de quedarme temporalmente sin computadora y quería dejar las cosas lo más adelantadas y estructuradas posible para poder migrarme a mi nuevo dispositivo prontamente. Ya que no tengo una fecha estimada exacta de cuándo me llega la nueva o cuándo me quedo sin mi computadora actual, quise dejar todo lo más adelantado posible para no tener problemas en el futuro con las próximas entregas.
+
 ---
 
 ## 1. Génesis y Origen de TRAMA
@@ -102,23 +105,26 @@ La construcción del código se ejecutó de forma incremental y verificada en ca
 
 La **Versión 1.0 de TRAMA** se encuentra completamente desplegada y funcional, cumpliendo con la totalidad de los objetivos de la primera fase:
 
-* [x] **Infraestructura Contenerizada:** Orquestación con Docker Compose (`trama-backend` y `trama-db`).
+* [x] **Stack de Desarrollo Completo (Pauta B.1):** Python 3.12, Django 5.2, PostgreSQL 17, Docker Compose y **Vite.js + React 19** en `frontend/` descargados, instalados y orquestados.
+* [x] **Infraestructura Contenerizada (Docker):** Orquestación integral de 3 servicios: `trama-backend` (Django), `trama-db` (PostgreSQL 17) y `trama-frontend` (Vite.js).
+* [x] **Automatización de Base de Datos y Datos de Prueba:** Migraciones automáticas aplicadas al encender el contenedor y precarga inmediata de usuarios de prueba desde `initial_users.json`.
 * [x] **Base de Datos Relacional:** PostgreSQL 17 conectado y sincronizado mediante migraciones Django.
-* [x] **Módulo de Usuarios (`users`):**
+* [x] **Módulo de Usuarios (`users` — Pauta B.6):**
   * Modelo `User` personalizado heredando de `AbstractUser` con soporte para roles (`admin`, `manager`, `user`, `visitor`).
   * Modelo `Profile` con cédula, teléfono, subprograma y subproyecto.
   * Formulario de Registro con validación de correo institucional y contraseñas.
   * Formulario de Inicio de Sesión y cierre de sesión seguro.
   * Vista de Perfil de Usuario para actualización de datos académicos.
-* [x] **Django Admin Institucional:**
+* [x] **Django Admin Institucional (Pauta B.7):**
   * Personalizado bajo el título **`TRAMA — Administración UNELLEZ`**.
   * Edición de usuarios con formulario inline del perfil académico.
   * Filtros por rol, estado activo y staff; buscador por correo, usuario y nombre.
-* [x] **Vistas y Plantillas Adaptativas según Roles:**
+* [x] **Vistas y Plantillas Adaptativas según Roles (Pauta B.8):**
   * **Visitante:** Landing page con catálogo público y presentación de la red académica.
   * **Estudiante / Usuario:** Panel con resumen de solicitudes, préstamos activos y recursos asignados.
   * **Gestor / Docente:** Bandeja de gestión para aprobación o rechazo de solicitudes de subproyectos.
   * **Administrador:** Consola de supervisión con métricas de la base de datos y acceso al panel administrativo.
+* [x] **Frontend SPA con Vite.js y React 19 (Puerto 5173):** Aplicación cliente lista para el consumo de datos, con interfaz institucional unellista y verificación interactiva de conexión con el backend.
 * [x] **Identidad Visual UNELLEZ:** Paleta cromática oficial (Cobalto `#2563EB`, Ámbar `#F59E0B`, Azul Noche `#0B192C`), tipografía *Plus Jakarta Sans* y hoja de estilos `trama.css` modular y optimizada (316 líneas, 0 advertencias).
 
 ---
