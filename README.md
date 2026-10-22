@@ -161,11 +161,12 @@ Para facilitar la evaluación y demostración interactiva de los diferentes nive
    ```bash
    docker compose ps
    ```
-   *Deberá observar `trama-backend` (puerto `8000`) y `trama-db` (puerto `5432`) en estado saludable (`Up`).*
+   *Deberá observar `trama-backend` (puerto `8000`), `trama-db` (puerto `5432`) y `trama-frontend` (puerto `5173`) en estado activo (`Up`).*
 
-4. **Acceder a la aplicación:**
-   * **Plataforma Web (Portal TRAMA):** [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+4. **Acceder a los módulos del stack:**
+   * **Plataforma Web (Portal TRAMA - Django):** [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
    * **Panel Administrativo (Django Admin):** [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
+   * **Entorno Cliente SPA (Vite.js + React):** [http://127.0.0.1:5173/](http://127.0.0.1:5173/)
 
 5. **Detener los servicios cuando sea necesario:**
    ```bash
@@ -202,6 +203,8 @@ trama-platform/
 │   │       ├── profile.html
 │   │       └── register.html
 │   ├── users/                      # Aplicación Django de Usuarios y Autenticación
+│   │   ├── fixtures/
+│   │   │   └── initial_users.json  # Cuentas de prueba precargadas automáticamente
 │   │   ├── admin.py                # Configuración de tablas en Django Admin
 │   │   ├── forms.py                # Formularios de Registro, Login y Perfil
 │   │   ├── models.py               # Modelos User y Profile con roles
@@ -210,7 +213,13 @@ trama-platform/
 │   ├── Dockerfile                  # Imagen Docker para el entorno Python
 │   ├── manage.py
 │   └── requirements.txt            # Dependencias del backend
-├── docker-compose.yml              # Orquestación de servicios (Django + PostgreSQL)
+├── frontend/                       # Código fuente del frontend (Vite.js + React)
+│   ├── public/                     # Recursos estáticos públicos (logo, iconos)
+│   ├── src/                        # Código fuente React (App, estilos, componentes)
+│   ├── Dockerfile                  # Imagen Docker para el entorno Node/Vite
+│   ├── package.json                # Dependencias de Vite y React
+│   └── vite.config.js              # Configuración del servidor de desarrollo Vite
+├── compose.yaml                    # Orquestación de servicios (Django + Postgres + Vite)
 └── README.md                       # Documentación técnica y académica del proyecto
 ```
 
