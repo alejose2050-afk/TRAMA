@@ -47,5 +47,22 @@ services:
       db:
         condition: service_healthy
 
+  # --- Frontend Vite + React ---
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: trama-frontend
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "127.0.0.1:5173:5173"
+    environment:
+      - VITE_API_URL=http://127.0.0.1:8000
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:
