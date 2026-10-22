@@ -1,9 +1,8 @@
 # TRAMA
 ## Plataforma Integral de Gestión y Articulación de Recursos Universitarios
-### Universidad Nacional Experimental de los Llanos Occidentales «Ezequiel Zamora» (UNELLEZ) — VPDS Barinas
 
 > ### 📌 Nota para el Docente / Evaluación Académica
-> **Profesor:** Aquí se encuentran implementadas y organizadas las condiciones previstas que colocó en el Classroom para el desarrollo del proyecto. Si de alguna manera esta primera fase se aprecia más desarrollada de lo pedido inicialmente, el motivo es porque estoy a punto de quedarme temporalmente sin computadora y quería dejar las cosas lo más adelantadas y estructuradas posible para poder migrarme a mi nuevo dispositivo prontamente. Ya que no tengo una fecha estimada exacta de cuándo me llega la nueva o cuándo me quedo sin mi computadora actual, quise dejar todo lo más adelantado posible para no tener problemas en el futuro con las próximas entregas.
+> **Profesor Rafael Barrios:** Aquí se encuentran implementadas y organizadas las condiciones previstas que colocó en el Classroom para el desarrollo del proyecto. Si de alguna manera esta primera fase se aprecia más desarrollada de lo pedido inicialmente, el motivo es porque estoy a punto de quedarme temporalmente sin computadora y quería dejar las cosas lo más adelantadas y estructuradas posible para poder migrarme a mi nuevo dispositivo prontamente. Ya que no tengo una fecha estimada exacta de cuándo me llega la nueva o cuándo me quedo sin mi computadora actual, quise dejar todo lo más adelantado posible para no tener problemas en el futuro con las próximas entregas.
 
 ---
 
