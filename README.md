@@ -12,7 +12,7 @@
 
 1. **Gestión y Organización de Tareas (Proyecto de Semestre Anterior):** La experiencia previa en el desarrollo de herramientas para el seguimiento de tareas, asignación de responsabilidades y flujos de trabajo secuenciales sentó las bases para el control de estados y autorizaciones.
 2. **Administración de Recursos y Gestión (Proyecto Personal):** El diseño de una solución personal orientada al control financiero, balances y optimización de activos aportó la lógica para el seguimiento de disponibilidad, inventario y rendición de cuentas de bienes.
-3. **Planificación y Coordinación Universitaria (Proyectos de Grado y Subproyectos):** La necesidad cotidiana de estudiantes y docentes de la UNELLEZ de coordinar defensas de grado, prácticas académicas y disponer de recursos tecnológicos (video beams, salas de cómputo, auditorios) sin fricciones ni desorganización.
+3. **Planificación y Coordinación Universitaria:** La necesidad cotidiana de estudiantes y docentes de la UNELLEZ de coordinar defensas de grado, prácticas académicas y disponer de recursos tecnológicos (video beams, salas de cómputo, auditorios) sin fricciones ni desorganización.
 
 La integración de estas tres visiones dio nacimiento a **TRAMA**: una plataforma centralizada que articula el préstamo de bienes institucionales, la validación docente y el respaldo a los subproyectos académicos de la comunidad unellista.
 
