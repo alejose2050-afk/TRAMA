@@ -8,21 +8,21 @@
 
 ## 1. Génesis y Origen de TRAMA
 
-**TRAMA** no surge como una idea aislada, sino como el punto de convergencia y evolución de tres vertientes y experiencias de desarrollo previas:
+**TRAMA** no surge como una idea aislada, sino como la **unión e integración armónica de tres ideas y vertientes de proyectos diferentes**, todas orientadas a resolver necesidades críticas de los **estudiantes universitarios**:
 
-1. **Gestión y Organización de Tareas (Proyecto de Semestre Anterior):** La experiencia previa en el desarrollo de herramientas para el seguimiento de tareas, asignación de responsabilidades y flujos de trabajo secuenciales sentó las bases para el control de estados y autorizaciones.
-2. **Administración de Recursos y Gestión (Proyecto Personal):** El diseño de una solución personal orientada al control financiero, balances y optimización de activos aportó la lógica para el seguimiento de disponibilidad, inventario y rendición de cuentas de bienes.
-3. **Planificación y Coordinación Universitaria:** La necesidad cotidiana de estudiantes y docentes de la UNELLEZ de coordinar defensas de grado, prácticas académicas y disponer de recursos tecnológicos (video beams, salas de cómputo, auditorios) sin fricciones ni desorganización.
+1. **Organización y Seguimiento de Tareas Estudiantiles:** La necesidad de los estudiantes universitarios de contar con un sistema ágil para la planificación de tareas académicas, asignación de responsabilidades en equipo y control de flujos de trabajo secuenciales.
+2. **Administración y Control de Recursos:** La importancia de gestionar y optimizar recursos, presupuestos y activos de apoyo a las actividades universitarias, aportando trazabilidad, disponibilidad de inventario y orden administrativo.
+3. **Coordinación de Proyectos y Trabajos de Grado:** La necesidad cotidiana de coordinar defensas de grado, prácticas de campo, subproyectos y disponer a tiempo de recursos tecnológicos y espacios físicos (como video beams, salas de conferencias y laboratorios) sin contratiempos.
 
-La integración de estas tres visiones dio nacimiento a **TRAMA**: una plataforma centralizada que articula el préstamo de bienes institucionales, la validación docente y el respaldo a los subproyectos académicos de la comunidad unellista.
+La convergencia de estas tres ideas dio nacimiento a **TRAMA**: una plataforma centralizada que articula el préstamo de bienes institucionales, la validación docente y el respaldo integral a las iniciativas académicas de la comunidad universitaria.
 
 ---
 
 ## 2. Introducción
 
-TRAMA es una plataforma web orientada a facilitar la organización de actividades universitarias y la coordinación de recursos entre los miembros de la comunidad académica. Su propósito es centralizar la publicación de recursos, la gestión de solicitudes y el seguimiento de préstamos relacionados con actividades universitarias.
+TRAMA es una plataforma web orientada a facilitar la organización de actividades académicas y la coordinación de recursos entre los miembros de la comunidad universitaria. Su propósito es centralizar la consulta de recursos, la gestión de solicitudes y el seguimiento de préstamos para el desarrollo de proyectos y prácticas estudiantiles.
 
-Para orientar su desarrollo, se utiliza la **metodología de desarrollo en V**, siguiendo la rama descendente para definir progresivamente los requisitos, la arquitectura y el diseño del sistema antes de comenzar la implementación del código.
+Para guiar su construcción, se utiliza la **metodología de desarrollo en V**, siguiendo su ciclo estructurado para definir requisitos, arquitectura y diseño modular antes de pasar a la codificación.
 
 ---
 
@@ -44,24 +44,23 @@ Para orientar su desarrollo, se utiliza la **metodología de desarrollo en V**, 
 
 ### 3.1. Análisis de Requisitos (*Requirement Gathering*)
 
-En esta etapa se identificaron las necesidades de los usuarios y las funcionalidades requeridas para TRAMA en el contexto universitario:
+En esta etapa se identificaron las necesidades operativas de los estudiantes y el cuerpo docente:
 
-* **Registro, inicio de sesión y gestión de perfiles:** Identificación por correo institucional, cédula de identidad, teléfono y adscripción al subprograma académico.
+* **Registro, inicio de sesión y perfiles:** Identificación por correo institucional o personal, cédula, teléfono y facultad o departamento académico.
 * **Administración de roles y permisos (RBAC):** Separación estricta de privilegios entre Administrador, Gestor, Usuario y Visitante.
-* **Publicación y consulta de recursos disponibles:** Catálogo de equipos audiovisuales, laboratorios y espacios físicos de la sede.
-* **Coordinación de solicitudes y préstamos:** Solicitud formal de equipos vinculada a subproyectos académicos, con validación de disponibilidad y aprobación del responsable.
+* **Catálogo de recursos disponibles:** Inventario clasificado de equipos audiovisuales, laboratorios y espacios para actividades académicas.
+* **Coordinación de solicitudes y préstamos:** Solicitud formal de equipos vinculada a proyectos y defensas de grado, con control de disponibilidad y aprobación docente.
 * **Seguimiento del estado de solicitudes:** Trazabilidad en tiempo real (*Pendiente*, *Aprobado*, *Rechazado*, *Finalizado*).
-* **Gestión de presupuestos y recursos asociados:** Estimación y control de insumos requeridos para eventos y prácticas académicas.
-* **Administración y auditoría:** Control total sobre las tablas de base de datos a través de una consola administrativa institucional.
+* **Consola administrativa y auditoría:** Control total sobre las tablas de base de datos a través de una consola administrativa estructurada.
 
 ### 3.2. Análisis del Sistema (*System Analysis*)
 
-La plataforma se concibe como un sistema modular interactivo donde convergen cuatro perfiles claramente diferenciados:
+La plataforma se concibe como un sistema modular interactivo donde convergen cuatro perfiles:
 
 * **Administrador:** Supervisa la infraestructura del sistema, gestiona cuentas de usuario, audita transacciones y administra las tablas del modelo relacional.
-* **Gestor (Docente / Jefe de Subprograma):** Supervisa los recursos a su cargo (ej. laboratorios de computación o equipos de jefatura) y aprueba o rechaza solicitudes de préstamo para las actividades y subproyectos.
-* **Usuario (Estudiante):** Consulta el catálogo de inventario disponible en el campus, solicita préstamos para sus subproyectos y defensas de grado, y hace seguimiento de sus solicitudes.
-* **Visitante:** Miembro de la comunidad universitaria o externo que consulta la oferta institucional pública de recursos sin necesidad de iniciar sesión.
+* **Gestor (Docente / Coordinador):** Supervisa los recursos a su cargo y aprueba o rechaza solicitudes de préstamo para las actividades y proyectos de los estudiantes.
+* **Usuario (Estudiante):** Consulta el catálogo de inventario disponible en el campus, solicita préstamos para sus proyectos o prácticas, y hace seguimiento de sus solicitudes.
+* **Visitante:** Miembro de la comunidad o público interesado que consulta la oferta pública de recursos sin necesidad de iniciar sesión.
 
 ### 3.3. Diseño de Software y Arquitectura (*Software Design*)
 
@@ -69,8 +68,9 @@ TRAMA adopta una arquitectura cliente-servidor robusta, mantenible y desacoplada
 
 * **Backend:** Python 3.12 y Django 5.2, implementando controladores basados en vistas modulares, modelos relacionales y lógica de autenticación segura.
 * **Base de Datos:** PostgreSQL 17, garantizando integridad referencial, transaccionalidad ACID y soporte para consultas concurrentes.
-* **Frontend:** Interfaz web responsiva con sistema de diseño institucional (*Design System*) basado en Vanilla CSS optimizado, tipografía oficial (*Plus Jakarta Sans*) y cromática institucional UNELLEZ. Preparado para integración progresiva con React / Vite.
-* **Entorno de Contenedores:** Docker y Docker Compose para reproducibilidad exacta del entorno tanto en desarrollo como en producción.
+* **Interfaz de Usuario Central (Frontend Integrado):** Interfaz web unificada y responsiva sobre plantillas Django con sistema de diseño (*Design System*) basado en Vanilla CSS optimizado, tipografía moderna (*Plus Jakarta Sans*) y cromática profesional.
+* **Capa Frontend Vite.js (Stack de Desarrollo):** Estructura de proyecto Vite.js + React 19 configurada en el repositorio (`frontend/`) para cumplir con las condiciones del stack y permitir expansiones progresivas a futuro sin duplicidad visual para el usuario.
+* **Entorno de Contenedores:** Docker y Docker Compose para reproducibilidad exacta del entorno.
 * **Control de Versiones:** Git con flujo de trabajo estructurado por ramas y convenciones de *Conventional Commits*.
 
 ### 3.4. Diseño de Módulos (*Module Design*)
@@ -78,24 +78,19 @@ TRAMA adopta una arquitectura cliente-servidor robusta, mantenible y desacoplada
 El sistema se estructura en los siguientes módulos fundamentales:
 
 1. **Usuarios y Autenticación (`users`):** Modelo `User` personalizado con roles nativos, relación uno-a-uno con modelo `Profile`, formularios validados y middleware de sesión.
-2. **Recursos e Inventario (`resources`):** Catálogo de bienes (video beams, salas de computación, accesorios) con código de bien institucional, sede y estado de operatividad.
-3. **Solicitudes y Préstamos (`loans`):** Circuito de solicitud por horario, vinculación a subproyecto académico, validación docente y registro de entregas/devoluciones.
-4. **Actividades y Subproyectos:** Planificación de eventos académicos, jornadas, clases prácticas y defensas de proyecto vinculadas al uso de bienes.
-5. **Presupuestos y Planificación:** Estimación y control de costos asociados al uso o mantenimiento de recursos.
-6. **Consola Administrativa:** Panel Django Admin personalizado institucionalmente con filtros, búsquedas y permisos jerárquicos.
+2. **Recursos e Inventario (`resources`):** Catálogo de bienes (video beams, salas de cómputo, accesorios) con código institucional, ubicación y estado operativo.
+3. **Solicitudes y Préstamos (`loans`):** Circuito de solicitud por horario, vinculación a proyectos académicos, validación docente y registro de entregas/devoluciones.
+4. **Actividades y Proyectos:** Planificación de eventos académicos, jornadas, clases prácticas y defensas de grado estudiantiles.
+5. **Consola Administrativa:** Panel Django Admin adaptado institucionalmente con filtros, búsquedas y permisos jerárquicos.
 
-### 3.5. Punto de Inflexión
-
-El punto de inflexión marcó la culminación formal de la fase de planificación y especificación técnica, dando paso inmediato a la construcción del software ejecutable sobre infraestructura de contenedores.
-
-### 3.6. Codificación (*Coding*)
+### 3.5. Punto de Inflexión y Codificación (*Coding*)
 
 La construcción del código se ejecutó de forma incremental y verificada en cada etapa:
 
 1. Orquestación del entorno de contenedores Docker (PostgreSQL 17 + Django 5.2).
-2. Definición del modelo relacional de usuarios y roles con soporte para adscripción a la UNELLEZ.
+2. Definición del modelo relacional de usuarios y roles universitarios.
 3. Creación y ejecución de migraciones en la base de datos PostgreSQL.
-4. Parametrización del panel administrativo de Django con identidad institucional.
+4. Parametrización del panel administrativo de Django.
 5. Maquetación del sistema de plantillas adaptativo según privilegios (RBAC).
 
 ---
@@ -104,42 +99,39 @@ La construcción del código se ejecutó de forma incremental y verificada en ca
 
 La **Versión 1.0 de TRAMA** se encuentra completamente desplegada y funcional, cumpliendo con la totalidad de los objetivos de la primera fase:
 
-* [x] **Stack de Desarrollo Completo (Pauta B.1):** Python 3.12, Django 5.2, PostgreSQL 17, Docker Compose y **Vite.js + React 19** en `frontend/` descargados, instalados y orquestados.
-* [x] **Infraestructura Contenerizada (Docker):** Orquestación integral de 3 servicios: `trama-backend` (Django), `trama-db` (PostgreSQL 17) y `trama-frontend` (Vite.js).
+* [x] **Stack de Desarrollo Completo (Pauta B.1):** Python 3.12, Django 5.2, PostgreSQL 17, Docker Compose y **Vite.js + React 19** en `frontend/` configurados e integrados en el repositorio.
+* [x] **Presentación Unificada de Interfaz:** Para garantizar claridad durante la evaluación y evitar la confusión de dos interfaces web simultáneas, la plataforma se presenta de manera unificada a través del servicio web principal en el puerto `8000`, manteniendo los componentes y estructura de Vite.js listos en el proyecto.
+* [x] **Infraestructura Contenerizada (Docker):** Orquestación integral de servicios en Docker (`trama-backend` y `trama-db`), con arranque limpio y persistencia de datos.
 * [x] **Automatización de Base de Datos y Datos de Prueba:** Migraciones automáticas aplicadas al encender el contenedor y precarga inmediata de usuarios de prueba desde `initial_users.json`.
-* [x] **Base de Datos Relacional:** PostgreSQL 17 conectado y sincronizado mediante migraciones Django.
 * [x] **Módulo de Usuarios (`users` — Pauta B.6):**
   * Modelo `User` personalizado heredando de `AbstractUser` con soporte para roles (`admin`, `manager`, `user`, `visitor`).
-  * Modelo `Profile` con cédula, teléfono, subprograma y subproyecto.
-  * Formulario de Registro con validación de correo institucional y contraseñas.
+  * Modelo `Profile` con cédula, teléfono, facultad y descripción académica.
+  * Formulario de Registro con validación de correo y contraseñas.
   * Formulario de Inicio de Sesión y cierre de sesión seguro.
-  * Vista de Perfil de Usuario para actualización de datos académicos.
+  * Vista de Perfil de Usuario para actualización de datos.
 * [x] **Django Admin Institucional (Pauta B.7):**
-  * Personalizado bajo el título **`TRAMA — Administración UNELLEZ`**.
+  * Personalizado bajo el título **`TRAMA — Administración Universitaria`**.
   * Edición de usuarios con formulario inline del perfil académico.
   * Filtros por rol, estado activo y staff; buscador por correo, usuario y nombre.
 * [x] **Vistas y Plantillas Adaptativas según Roles (Pauta B.8):**
   * **Visitante:** Landing page con catálogo público y presentación de la red académica.
   * **Estudiante / Usuario:** Panel con resumen de solicitudes, préstamos activos y recursos asignados.
-  * **Gestor / Docente:** Bandeja de gestión para aprobación o rechazo de solicitudes de subproyectos.
+  * **Gestor / Docente:** Bandeja de gestión para aprobación o rechazo de solicitudes de proyectos.
   * **Administrador:** Consola de supervisión con métricas de la base de datos y acceso al panel administrativo.
-* [x] **Frontend SPA con Vite.js y React 19 (Puerto 5173):** Aplicación cliente lista para el consumo de datos, con interfaz institucional unellista y verificación interactiva de conexión con el backend.
-* [x] **Identidad Visual UNELLEZ:** Paleta cromática oficial (Cobalto `#2563EB`, Ámbar `#F59E0B`, Azul Noche `#0B192C`), tipografía *Plus Jakarta Sans* y hoja de estilos `trama.css` modular y optimizada (316 líneas, 0 advertencias).
+* [x] **Identidad Visual Universitaria:** Paleta cromática equilibrada (Cobalto `#2563EB`, Ámbar `#F59E0B`, Azul Noche `#0B192C`), tipografía *Plus Jakarta Sans* y hoja de estilos `trama.css` modular y optimizada.
 
 ---
 
 ## 5. Cuentas de Prueba para Evaluación
 
-Para facilitar la evaluación y demostración interactiva de los diferentes niveles de acceso y navegación basada en roles, se encuentran preconfiguradas las siguientes credenciales en la base de datos:
+Para facilitar la evaluación y demostración interactiva de los diferentes niveles de acceso y navegación basada en roles, se encuentran preconfiguradas las siguientes credenciales en la base de datos (con la contraseña unificada **`Trama2026`**):
 
-| Rol del Sistema | Nombre de Usuario / Titular | Correo Electrónico | Contraseña | Vistas y Capacidades Evaluables |
+| Rol del Sistema | Nombre del Titular | Correo Electrónico | Contraseña | Vistas y Capacidades Evaluables |
 | :--- | :--- | :--- | :--- | :--- |
-| **Administrador** | Admin TRAMA | `admin@trama.local` | `TramaDev2026!` | Consola global, métricas de PostgreSQL y acceso al [Django Admin](http://127.0.0.1:8000/admin/). |
-| **Gestor / Docente** | Prof. Carlos Mendoza | `docente@trama.local` | `TramaDev2026!` | Panel de gestión, bandeja de aprobación de solicitudes y control de recursos del subprograma. |
-| **Estudiante** | María Fernández | `estudiante@trama.local` | `TramaDev2026!` | Panel del estudiante, estado de solicitudes personales y vinculación a subproyectos. |
+| **Administrador** | Carlos Mendoza | `admin@trama.local` | `Trama2026` | Consola global, métricas de PostgreSQL y acceso al [Django Admin](http://127.0.0.1:8000/admin/). |
+| **Gestor / Docente** | Prof. Rafael Barrios | `docente@trama.local` | `Trama2026` | Panel de gestión, bandeja de aprobación de solicitudes y control de recursos docentes. |
+| **Estudiante** | Mariana Silva | `estudiante@trama.local` | `Trama2026` | Panel del estudiante, estado de solicitudes personales y vinculación a proyectos académicos. |
 | **Visitante** | *Público General* | *(Sin iniciar sesión)* | N/A | Consulta del catálogo de recursos, descripción de la plataforma y accesos a registro/login. |
-
-> **Nota:** También se encuentran activas las cuentas de desarrollo alternativas `alejose2050@gmail.com` (Gestor) y `alejandro.g@universidad.edu` (Estudiante), ambas con la contraseña `TramaDev2026!`.
 
 ---
 
@@ -166,12 +158,13 @@ Para facilitar la evaluación y demostración interactiva de los diferentes nive
    ```bash
    docker compose ps
    ```
-   *Deberá observar `trama-backend` (puerto `8000`), `trama-db` (puerto `5432`) y `trama-frontend` (puerto `5173`) en estado activo (`Up`).*
+   *Deberá observar `trama-backend` (puerto `8000`) y `trama-db` (puerto `5432`) en estado activo (`Up`).*
 
-4. **Acceder a los módulos del stack:**
-   * **Plataforma Web (Portal TRAMA - Django):** [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+4. **Acceder a la plataforma web única:**
+   * **Plataforma Web TRAMA:** [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
    * **Panel Administrativo (Django Admin):** [http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)
-   * **Entorno Cliente SPA (Vite.js + React):** [http://127.0.0.1:5173/](http://127.0.0.1:5173/)
+
+   *(El módulo `frontend/` basado en Vite.js y React se encuentra listo en el repositorio para futuras expansiones como SPA).*
 
 5. **Detener los servicios cuando sea necesario:**
    ```bash
@@ -192,7 +185,7 @@ trama-platform/
 │   │   └── wsgi.py
 │   ├── static/                     # Archivos estáticos institucionales
 │   │   ├── css/
-│   │   │   └── trama.css           # Sistema de diseño e identidad visual (UNELLEZ)
+│   │   │   └── trama.css           # Sistema de diseño e identidad visual
 │   │   └── img/
 │   │       └── trama_logo.png      # Logo oficial de TRAMA
 │   ├── templates/                  # Sistema de plantillas HTML
@@ -224,7 +217,7 @@ trama-platform/
 │   ├── Dockerfile                  # Imagen Docker para el entorno Node/Vite
 │   ├── package.json                # Dependencias de Vite y React
 │   └── vite.config.js              # Configuración del servidor de desarrollo Vite
-├── compose.yaml                    # Orquestación de servicios (Django + Postgres + Vite)
+├── compose.yaml                    # Orquestación de servicios (Django + Postgres)
 └── README.md                       # Documentación técnica y académica del proyecto
 ```
 
@@ -235,10 +228,10 @@ trama-platform/
 El desarrollo se gestiona de forma incremental:
 * La rama **`main`** alberga las versiones estables y verificadas del software.
 * Se utilizan ramas de funcionalidad (*feature branches*) para el desarrollo de módulos específicos.
-* Cada cambio significativo se documenta mediante commits semánticos y verificación cruzada en contenedores.
+* Cada cambio significativo se documenta mediante commits concisos y verificación en contenedores.
 
 ---
 
 ## 9. Objetivo de la Metodología
 
-La aplicación sistemática de la **metodología de desarrollo en V** garantiza la correspondencia directa entre los requisitos levantados, la arquitectura tecnológica, el código implementado y las futuras fases de pruebas unitarias y de integración. De esta manera, se asegura la construcción de una plataforma estable, segura, escalable y estrechamente vinculada a las necesidades operativas de la comunidad académica de la UNELLEZ.
+La aplicación sistemática de la **metodología de desarrollo en V** garantiza la correspondencia directa entre los requisitos levantados, la arquitectura tecnológica, el código implementado y las futuras fases de pruebas unitarias y de integración. De esta manera, se asegura la construcción de una plataforma estable, segura, escalable y estrechamente vinculada a las necesidades operativas de la comunidad universitaria.

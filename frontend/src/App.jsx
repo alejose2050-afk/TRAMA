@@ -33,7 +33,7 @@ function App() {
             <div className="brand-sub">Frontend — Vite.js & React</div>
           </div>
         </div>
-        <span className="badge-pill">UNELLEZ — VPDS Barinas</span>
+        <span className="badge-pill">Campus Universitario</span>
       </header>
 
       <main>
@@ -63,7 +63,7 @@ function App() {
               rel="noreferrer"
               className="btn btn-outline"
             >
-              Django Admin UNELLEZ
+              Django Admin
             </a>
             <button
               type="button"
@@ -119,7 +119,7 @@ function App() {
 
       <footer className="footer-note">
         <strong>TRAMA</strong> — Plataforma Integral de Gestión y Articulación de Recursos Universitarios.<br />
-        Subprograma Ingeniería en Informática — UNELLEZ (VPDS Barinas).
+        Desarrollo académico orientado a estudiantes y docentes universitarios.
       </footer>
     </div>
   )

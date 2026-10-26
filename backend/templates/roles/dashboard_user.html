@@ -1,6 +1,6 @@
 <!-- ========================================================================
-     VISTA DEL ESTUDIANTE UNELLISTA (Rol: Usuario)
-     Panel de seguimiento de préstamos y solicitudes para subproyectos
+     VISTA DEL ESTUDIANTE (Rol: Usuario)
+     Panel de seguimiento de préstamos y solicitudes para proyectos
      ======================================================================== -->
 
 <div style="padding: 36px 0 64px;">
@@ -9,14 +9,14 @@
   <div style="background-color: #ffffff; border: 1px solid var(--trama-border); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-sm); margin-bottom: 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
     <div>
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-        <span class="badge badge-cobalt">Estudiante UNELLEZ</span>
-        <span style="font-size: 0.85rem; color: var(--trama-text-muted);">{{ user.profile.department|default:"VPDS — Subprograma Ingeniería en Informática" }}</span>
+        <span class="badge badge-cobalt">Estudiante</span>
+        <span style="font-size: 0.85rem; color: var(--trama-text-muted);">{{ user.profile.department|default:"Facultad de Ingeniería — Informática" }}</span>
       </div>
       <h1 style="font-size: 1.85rem; font-weight: 800; color: var(--trama-navy-deep); letter-spacing: -0.02em;">
         Bienvenido a tu panel, {{ user.first_name }}
       </h1>
       <p style="font-size: 0.95rem; color: var(--trama-text-muted); margin-top: 4px;">
-        Gestiona las solicitudes de video beams, laboratorios y equipos para tus defensas y subproyectos en el campus.
+        Gestiona las solicitudes de video beams, laboratorios y equipos para tus defensas y proyectos académicos.
       </p>
     </div>
     <div style="display: flex; gap: 12px;">

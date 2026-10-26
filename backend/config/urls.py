@@ -20,8 +20,8 @@ urlpatterns = [
     path('usuarios/', include('users.urls', namespace='users')),
 ]
 
-# Personalización institucional del Panel de Administración (UNELLEZ)
-admin.site.site_header = "TRAMA — Administración UNELLEZ"
+# Personalización institucional del Panel de Administración
+admin.site.site_header = "TRAMA — Administración Universitaria"
 admin.site.site_title = "Panel Administrativo TRAMA"
 admin.site.index_title = "Gestión de Tablas y Base de Datos del Campus"
 

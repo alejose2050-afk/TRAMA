@@ -12,8 +12,8 @@
         <a href="{% url 'home' %}">
           <img src="{% static 'img/trama_logo.png' %}" alt="TRAMA" class="auth-header-logo">
         </a>
-        <h1 class="auth-title">Crear Cuenta Unellista</h1>
-        <p class="auth-subtitle">Regístrate para solicitar y articular recursos en la UNELLEZ.</p>
+        <h1 class="auth-title">Crear Cuenta Universitaria</h1>
+        <p class="auth-subtitle">Regístrate para solicitar y articular recursos en la plataforma académica.</p>
       </div>
 
       <form method="post" action="{% url 'users:register' %}">
@@ -54,7 +54,7 @@
         </div>
 
         <div class="form-group">
-          <label for="id_role" class="form-label">Condición en la UNELLEZ</label>
+          <label for="id_role" class="form-label">Rol o Condición Universitaria</label>
           {{ form.role }}
           <span class="form-help">Docentes, jefes de subprograma o encargados de laboratorio tienen permisos de aprobación.</span>
           {% if form.role.errors %}

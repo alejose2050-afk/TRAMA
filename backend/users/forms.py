@@ -1,9 +1,9 @@
 """
 Formularios de autenticación y registro de usuarios para TRAMA.
-Adaptado a la estructura académica de la UNELLEZ (Vicerrectorados, Programas y Subprogramas).
+Adaptado a la estructura académica universitaria (Facultades, Escuelas y Departamentos).
 
 Incluye:
-- Registro de integrantes de la UNELLEZ con su adscripción académica.
+- Registro de integrantes de la comunidad universitaria con su adscripción académica.
 - Formulario de inicio de sesión con correo universitario y contraseña.
 - Formulario de edición de perfil para mantener los datos de contacto al día.
 """
@@ -20,9 +20,9 @@ User = get_user_model()
 
 class UserRegistrationForm(forms.ModelForm):
     """
-    Formulario de registro para la comunidad unellista.
-    Captura datos de identidad, correo institucional y el Subprograma
-    académico o área de adscripción dentro del Vicerrectorado.
+    Formulario de registro para la comunidad universitaria.
+    Captura datos de identidad, correo institucional y el departamento
+    o área de adscripción académica.
     """
 
     first_name = forms.CharField(
@@ -50,24 +50,24 @@ class UserRegistrationForm(forms.ModelForm):
         required=True,
         widget=forms.EmailInput(attrs={
             'class': 'form-input',
-            'placeholder': 'usuario@unellez.edu.ve o tu correo personal',
+            'placeholder': 'usuario@universidad.edu.ve o tu correo personal',
             'autocomplete': 'email',
         })
     )
     department = forms.CharField(
-        label='Vicerrectorado y Subprograma Académico',
+        label='Facultad / Escuela o Departamento Académico',
         max_length=150,
         required=True,
         widget=forms.TextInput(attrs={
             'class': 'form-input',
-            'placeholder': 'Ej. VPDS - Subprograma Ingeniería en Informática',
+            'placeholder': 'Ej. Facultad de Ingeniería - Informática',
         })
     )
     role = forms.ChoiceField(
-        label='Condición en la UNELLEZ',
+        label='Rol o Condición Universitaria',
         choices=[
             (User.Role.USER, 'Estudiante (Pregrado / Postgrado)'),
-            (User.Role.MANAGER, 'Docente / Jefe de Subprograma / Encargado de Laboratorio'),
+            (User.Role.MANAGER, 'Docente / Coordinador / Encargado de Laboratorio'),
         ],
         initial=User.Role.USER,
         widget=forms.Select(attrs={
@@ -136,7 +136,7 @@ class UserLoginForm(AuthenticationForm):
         label='Correo electrónico registrado',
         widget=forms.EmailInput(attrs={
             'class': 'form-input',
-            'placeholder': 'usuario@unellez.edu.ve o tu correo',
+            'placeholder': 'usuario@universidad.edu.ve o tu correo',
             'autocomplete': 'email',
             'autofocus': True,
         })
@@ -153,7 +153,7 @@ class UserLoginForm(AuthenticationForm):
 
 class ProfileUpdateForm(forms.ModelForm):
     """
-    Formulario para actualizar datos personales del perfil unellista.
+    Formulario para actualizar datos personales del perfil de usuario.
     """
 
     first_name = forms.CharField(

@@ -1,14 +1,14 @@
 """
 Vistas para la gestión de usuarios, autenticación y navegación principal de TRAMA.
-Contextualizado a la UNELLEZ (Universidad Nacional Experimental de los Llanos Occidentales Ezequiel Zamora).
+Orientado a la gestión académica universitaria.
 
 Controladores incluidos:
 - home_view: Vista adaptativa basada en roles de usuario (RBAC):
-    * Visitante: Portada y catálogo de consulta para la comunidad unellista.
-    * Usuario (Estudiante): Panel de solicitudes personales de equipos y espacios para subproyectos.
-    * Gestor (Docente/Jefe de Subprograma): Bandeja de aprobación de préstamos y recursos a su cargo.
+    * Visitante: Portada y catálogo de consulta para la comunidad universitaria.
+    * Usuario (Estudiante): Panel de solicitudes personales de equipos y espacios para proyectos.
+    * Gestor (Docente/Coordinador): Bandeja de aprobación de préstamos y recursos a su cargo.
     * Administrador: Métricas globales del sistema piloto y consola de control.
-- register_view: Procesa el registro con rol y adscripción a la UNELLEZ.
+- register_view: Procesa el registro con rol y adscripción académica.
 - login_view: Autentica al usuario mediante correo y contraseña.
 - logout_view: Cierra la sesión activa y redirige al inicio.
 - profile_view: Permite al usuario consultar y actualizar sus datos de perfil.
@@ -27,7 +27,7 @@ User = get_user_model()
 def home_view(request):
     """
     Página principal de TRAMA.
-    Renderiza la vista correspondiente según el rol o privilegio del usuario en la UNELLEZ.
+    Renderiza la vista correspondiente según el rol o privilegio del usuario en el sistema.
     """
     user = request.user
     context = {}
@@ -148,7 +148,7 @@ def home_view(request):
 
 def register_view(request):
     """
-    Controlador para el registro de nuevos integrantes de la UNELLEZ.
+    Controlador para el registro de nuevos integrantes universitarios.
     Crea la cuenta, asigna el perfil correspondiente e inicia la sesión.
     """
     if request.user.is_authenticated:
@@ -161,7 +161,7 @@ def register_view(request):
             login(request, user)
             messages.success(
                 request,
-                f'¡Bienvenido a TRAMA, {user.first_name}! Tu cuenta unellista ha sido creada exitosamente.'
+                f'¡Bienvenido a TRAMA, {user.first_name}! Tu cuenta universitaria ha sido creada exitosamente.'
             )
             return redirect('home')
         else:
