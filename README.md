@@ -42,6 +42,11 @@ Para guiar su construcción, se utiliza la **metodología de desarrollo en V**, 
                         [6. Codificación]
 ```
 
+<div align="center">
+  <img src="docs/infografia_modelo_v.jpg" alt="Infografía TRAMA — Fases de desarrollo según el modelo en V" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+  <p><em>Infografía Metodológica: Fases de desarrollo según el Modelo en V de TRAMA.</em></p>
+</div>
+
 ### 3.1. Análisis de Requisitos (*Requirement Gathering*)
 
 En esta etapa se identificaron las necesidades operativas de los estudiantes y el cuerpo docente:
@@ -217,6 +222,8 @@ trama-platform/
 │   ├── Dockerfile                  # Imagen Docker para el entorno Node/Vite
 │   ├── package.json                # Dependencias de Vite y React
 │   └── vite.config.js              # Configuración del servidor de desarrollo Vite
+├── docs/                           # Documentación visual e infografías del proyecto
+│   └── infografia_modelo_v.jpg     # Infografía del Modelo en V de TRAMA
 ├── compose.yaml                    # Orquestación de servicios (Django + Postgres)
 └── README.md                       # Documentación técnica y académica del proyecto
 ```
