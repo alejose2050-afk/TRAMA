@@ -6,7 +6,7 @@
 
 ---
 
-## 1. Génesis y Origen de TRAMA
+## 1. Origen de TRAMA
 
 **TRAMA** no surge como una idea aislada, sino como la **unión e integración armónica de tres ideas y vertientes de proyectos diferentes**, todas orientadas a resolver necesidades críticas de los **estudiantes universitarios**:
 
