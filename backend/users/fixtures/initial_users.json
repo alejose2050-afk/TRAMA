@@ -12,7 +12,7 @@
     "is_staff": true,
     "is_active": true,
     "date_joined": "2026-10-26T00:00:34.994Z",
-    "email": "admin@trama.local",
+    "email": "admin@gmail.com",
     "role": "admin",
     "groups": [],
     "user_permissions": []
@@ -31,7 +31,7 @@
     "is_staff": false,
     "is_active": true,
     "date_joined": "2026-10-26T00:00:36.497Z",
-    "email": "docente@trama.local",
+    "email": "docente@hotmail.com",
     "role": "manager",
     "groups": [],
     "user_permissions": []
@@ -50,7 +50,7 @@
     "is_staff": false,
     "is_active": true,
     "date_joined": "2026-10-26T00:00:37.159Z",
-    "email": "estudiante@trama.local",
+    "email": "estudiante@gmail.com",
     "role": "user",
     "groups": [],
     "user_permissions": []

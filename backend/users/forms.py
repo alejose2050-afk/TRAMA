@@ -46,11 +46,11 @@ class UserRegistrationForm(forms.ModelForm):
         })
     )
     email = forms.EmailField(
-        label='Correo institucional o personal',
+        label='Correo personal (Gmail o Hotmail)',
         required=True,
         widget=forms.EmailInput(attrs={
             'class': 'form-input',
-            'placeholder': 'usuario@universidad.edu.ve o tu correo personal',
+            'placeholder': 'usuario@gmail.com o usuario@hotmail.com',
             'autocomplete': 'email',
         })
     )
@@ -136,7 +136,7 @@ class UserLoginForm(AuthenticationForm):
         label='Correo electrónico registrado',
         widget=forms.EmailInput(attrs={
             'class': 'form-input',
-            'placeholder': 'usuario@universidad.edu.ve o tu correo',
+            'placeholder': 'usuario@gmail.com o usuario@hotmail.com',
             'autocomplete': 'email',
             'autofocus': True,
         })

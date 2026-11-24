@@ -133,9 +133,9 @@ Para facilitar la evaluación y demostración interactiva de los diferentes nive
 
 | Rol del Sistema | Nombre del Titular | Correo Electrónico | Contraseña | Vistas y Capacidades Evaluables |
 | :--- | :--- | :--- | :--- | :--- |
-| **Administrador** | Carlos Mendoza | `admin@trama.local` | `Trama2026` | Consola global, métricas de PostgreSQL y acceso al [Django Admin](http://127.0.0.1:8000/admin/). |
-| **Gestor / Docente** | Prof. Rafael Barrios | `docente@trama.local` | `Trama2026` | Panel de gestión, bandeja de aprobación de solicitudes y control de recursos docentes. |
-| **Estudiante** | Mariana Silva | `estudiante@trama.local` | `Trama2026` | Panel del estudiante, estado de solicitudes personales y vinculación a proyectos académicos. |
+| **Administrador** | Carlos Mendoza | `admin@gmail.com` | `Trama2026` | Consola global, métricas de PostgreSQL y acceso al [Django Admin](http://127.0.0.1:8000/admin/). |
+| **Gestor / Docente** | Prof. Rafael Barrios | `docente@hotmail.com` | `Trama2026` | Panel de gestión, bandeja de aprobación de solicitudes y control de recursos docentes. |
+| **Estudiante** | Mariana Silva | `estudiante@gmail.com` | `Trama2026` | Panel del estudiante, estado de solicitudes personales y vinculación a proyectos académicos. |
 | **Visitante** | *Público General* | *(Sin iniciar sesión)* | N/A | Consulta del catálogo de recursos, descripción de la plataforma y accesos a registro/login. |
 
 ---
